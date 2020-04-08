@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package coronaprojekt;
+
 import java.util.HashMap;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -37,9 +37,10 @@ private static InfDB minDatabaskoppling;
            
             minDatabaskoppling = new InfDB(directory);
             
-            String query = "SELECT namn FROM anvandare";
+            String query = "SELECT * FROM anvandare where id = 1";
+            HashMap<String, String> obj = minDatabaskoppling.fetchRow(query);
 
-           
+            System.out.println(obj);
             System.out.println("Working..");
             
             // Skicka databasen till en sida 
