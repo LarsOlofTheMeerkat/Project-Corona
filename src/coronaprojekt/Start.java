@@ -9,6 +9,7 @@ import java.util.HashMap;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
+import java.util.ArrayList;
 
 /**
  *
@@ -42,6 +43,16 @@ private static InfDB minDatabaskoppling;
 
             System.out.println(obj);
             System.out.println("Working..");
+            
+            Anvandare obj1 = new Anvandare(minDatabaskoppling, 3, 10);
+            HashMap<String, Boolean> installningar = new HashMap<String, Boolean>();
+            installningar.put("bloggnotis", true);
+            installningar.put("kommentarer", true);
+            installningar.put("bloggtags", true);
+            
+            ArrayList res = obj1.anvandarSidan(installningar);
+            
+            System.out.println(res);
             
             // Skicka databasen till en sida 
             // new LoginScreen(minDatabaskoppling).setVisible(true);
