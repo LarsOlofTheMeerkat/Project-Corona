@@ -291,7 +291,7 @@ public class Main_Page extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //Funktioner som hanterar hur UI regerar när användaren rör sin mus över och klickar på delar av UI
     private void formel_Blogg_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formel_Blogg_btnMouseEntered
         formel_Blogg_btn.setBackground(hoverColorBtn);
         formel_Blogg_btn.setVisible(false);
@@ -422,7 +422,7 @@ public class Main_Page extends javax.swing.JFrame {
         blogg_Window_Formel.setVisible(false);
         blogg_Window_Formel.setVisible(true);
     }//GEN-LAST:event_blogg_Window_FormelMouseWheelMoved
-
+    //En klick funktion, i dem här ska alla länkar till andra metoder och klasser ligga
     private void formel_Blogg_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formel_Blogg_btnMouseClicked
         blogg_Window_Formel.setVisible(true);
         formel_Blogg_Panel.setVisible(true);
@@ -430,7 +430,7 @@ public class Main_Page extends javax.swing.JFrame {
         blogg_Window_Informell.setVisible(false);
         informell_Blogg_Panel.setVisible(false);
     }//GEN-LAST:event_formel_Blogg_btnMouseClicked
-
+    //klick Funktion
     private void informell_Blogg_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_informell_Blogg_btnMouseClicked
         blogg_Window_Informell.setVisible(true);
         informell_Blogg_Panel.setVisible(true);
@@ -506,7 +506,7 @@ public class Main_Page extends javax.swing.JFrame {
     private Color hoverColorBtn = new Color(41, 205, 255, 200);
     private Color baseColorBtn = new Color(3, 194, 252, 150);
     private Color clickedColorBtn = new Color(117, 223, 255, 200);
-    
+    //Initierar alla delar av huvud UI
     public void initMainWindow()
     {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -533,6 +533,6 @@ public class Main_Page extends javax.swing.JFrame {
         
         account_btn.setBackground(baseColorBtn);
         
-        System.out.println("Init Complete");    
+        System.out.println("Init of Main Page Complete");    
     };
 }
