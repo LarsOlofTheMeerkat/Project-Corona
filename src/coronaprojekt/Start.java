@@ -44,7 +44,7 @@ private static InfDB minDatabaskoppling;
             System.out.println(obj);
             System.out.println("Working..");
             
-            Anvandare obj1 = new Anvandare(minDatabaskoppling, 3, 10);
+            /*Anvandare obj1 = new Anvandare(minDatabaskoppling, 3, 10);
             HashMap<String, Boolean> installningar = new HashMap<String, Boolean>();
             installningar.put("bloggnotis", true);
             installningar.put("kommentarer", true);
@@ -52,7 +52,7 @@ private static InfDB minDatabaskoppling;
             
             ArrayList res = obj1.anvandarSidan(installningar);
             
-            System.out.println(res);
+            System.out.println(res);*/
             
             // Skicka databasen till en sida 
             // new LoginScreen(minDatabaskoppling).setVisible(true);
