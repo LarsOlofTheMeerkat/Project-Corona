@@ -54,9 +54,13 @@ private static InfDB minDatabaskoppling;
             
             System.out.println(res);*/
             
+            //Blogg test = new Blogg(minDatabaskoppling, 10);
+            
+            //System.out.println(test.hamtaFormellaBloggInlagg());
+            
             // Skicka databasen till en sida 
             // new LoginScreen(minDatabaskoppling).setVisible(true);
-            new Main_Page().setVisible(true);
+            //new Main_Page().setVisible(true);
             //new Login_Page().setVisible(true);
         }catch(InfException ettUndantag){
             JOptionPane.showMessageDialog(null, "Något gick fel");
