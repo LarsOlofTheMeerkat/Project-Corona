@@ -31,6 +31,46 @@ public class Anvandare {
         this.anvandareID = anvandareID;
         this.limit = limit;
     }
+    
+    public boolean taBortInlagg(int BloggID){
+        
+        boolean res = false;
+
+        try {
+            String fraga = "SELECT ANVANDAREID FROM BLOGG WHERE ID = " + BloggID;
+            
+            String res1 = this.db.fetchSingle(fraga);
+            // Kontrollerar om blogg inlägget tillhör använadaren
+            if(Integer.parseInt(res1) == this.anvandareID){
+                fraga = "DELETE FROM BLOGG WHERE ID = " + BloggID;
+                this.db.delete(fraga);
+                res = true;
+            }
+ 
+        } catch (InfException e) {
+            System.out.println("Something went wrong" + e);
+        }
+
+        return res;
+        
+    }
+    
+    public ArrayList hittaMinaBloggInlagg(){
+        
+        ArrayList<HashMap<String, String>> res = new ArrayList();
+
+        try {
+            String fraga = "SELECT * FROM BLOGG WHERE ANVANDAREID = " + this.anvandareID;
+
+            res = this.db.fetchRows(fraga);
+
+        } catch (InfException e) {
+            System.out.println("Something went wrong" + e);
+        }
+
+        return res;
+        
+    }
 
     protected ArrayList<HashMap<String, String>>
             setListOrderByDate(ArrayList<HashMap<String, String>> menuItems2) {
@@ -125,7 +165,6 @@ public class Anvandare {
         }
 
         if (installningar.containsKey("bloggtags")) {
-            System.out.println("Börjar här");
             // Hämtar blogg id relaterade till användare
             ArrayList<HashMap<String, String>> hamtaTags = this.hamtaTagsRelateradeTillAnvandare();
 
@@ -142,7 +181,6 @@ public class Anvandare {
                 for (int t = 0; t < tagRows.size(); t++) {
                     lista.add(tagRows.get(t).get("ANVANDAREID"));
                 }
-                System.out.println(lista);
                 // Hamta alla namn hos användare
                 ArrayList<HashMap<String, String>> namnAnvandare = this.hamtaAnvandareBaraNamn(lista);
                 ArrayList listaMedNamn = new ArrayList();
@@ -171,8 +209,6 @@ public class Anvandare {
             resultat.addAll(tags_final);
         }
 
-        System.out.println("Resultat arrayen");
-        System.out.println(resultat);
         // sortera efter datum
         resultat = this.setListOrderByDate(resultat);
 
