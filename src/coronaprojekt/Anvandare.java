@@ -32,6 +32,30 @@ public class Anvandare {
         this.limit = limit;
     }
     
+    public void testlaggTillAnvandare(){
+        try{
+            int id = Integer.parseInt(this.db.fetchSingle("SELECT MAX(ID) FROM ANVANDARE")) + 1;
+            String anvnamn = "test";
+            String losen = "test";
+            String telefon = "test";
+            String namn = "test";
+            String admin = "N";
+            String email = "test";
+
+           String laggTillAnvandare = "INSERT INTO ANVANDARE " +
+            "VALUES(" + id + ", '" + anvnamn + "', '" + losen + "', '" + telefon + "', '" + namn + "', '" + admin + "', '" + email + "');";
+           System.out.println(laggTillAnvandare);
+            this.db.insert(laggTillAnvandare);
+            
+            
+
+
+        }
+        catch(InfException ettUndantag){
+            System.out.println("Fel");
+        }
+    }
+    
     public boolean taBortInlagg(int BloggID){
         
         boolean res = false;
