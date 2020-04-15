@@ -61,9 +61,9 @@ private static InfDB minDatabaskoppling;
             // Skicka databasen till en sida 
             // new LoginScreen(minDatabaskoppling).setVisible(true);
             //new Main_Page().setVisible(true);
-            //new FilGUI().setVisible(true);
-            Anvandare obj1 = new Anvandare(minDatabaskoppling, 3, 10);
-            obj1.testlaggTillAnvandare();
+            new FilGUI(minDatabaskoppling).setVisible(true);
+            //Anvandare obj1 = new Anvandare(minDatabaskoppling, 3, 10);
+            //obj1.testlaggTillAnvandare();
         }catch(InfException ettUndantag){
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Intern felmeddelande " + ettUndantag.getMessage());

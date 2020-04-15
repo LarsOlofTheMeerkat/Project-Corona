@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import oru.inf.InfDB;
 /**
  *
  * @author jacob
@@ -28,9 +29,10 @@ public class FilGUI extends javax.swing.JFrame {
     /**
      * Creates new form FilGUI
      */
-    public FilGUI() {
+    public FilGUI(InfDB db) {
         initComponents();
-
+        
+        this.fil = new Fil(db);
     }
 
     /**
@@ -121,20 +123,29 @@ public class FilGUI extends javax.swing.JFrame {
 
     private void jFileChooser2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser2ActionPerformed
        // läser bild från datorn
-        boolean res = fil.lasBildFilPaDatorn(jFileChooser2);
+       /* boolean res = fil.lasBildFilPaDatorn(jFileChooser2);
        if(res){
             jFileChooser2.setVisible(false);
            jFrame1.setVisible(false);
            label1.setText("Loaded file " + url);
        }
+       */
+       System.out.println(jFileChooser2.getSelectedFile().getAbsolutePath());
+       fil.laddaFilPaDatorn(jFileChooser2);
+       jFileChooser2.setVisible(false);
+       jFrame1.setVisible(false);
+       label1.setText("Loaded file " + jFileChooser2.getSelectedFile().getAbsolutePath());
     }//GEN-LAST:event_jFileChooser2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-        String filnamn = fil.sparaBild("bytNamn");
+        // SPARA BILD EXEMPEL
+        /*String filnamn = fil.sparaBild("bytNamn");
         
-        fil.sparaFilMedBloggID(filnamn, 1);
+        fil.sparaFilMedBloggID(filnamn, 1);*/
         
+        
+        fil.sparaFil("test.docx");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     
@@ -142,35 +153,7 @@ public class FilGUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FilGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FilGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FilGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FilGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FilGUI().setVisible(true);
-            }
-        });
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
