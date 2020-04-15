@@ -45,12 +45,10 @@ public class Login_Page extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         anv_Txt_Fld.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        anv_Txt_Fld.setForeground(new java.awt.Color(0, 0, 0));
         getContentPane().add(anv_Txt_Fld);
         anv_Txt_Fld.setBounds(160, 80, 160, 40);
 
         anv_Pass_Fld.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        anv_Pass_Fld.setForeground(new java.awt.Color(0, 0, 0));
         getContentPane().add(anv_Pass_Fld);
         anv_Pass_Fld.setBounds(160, 140, 160, 40);
 
