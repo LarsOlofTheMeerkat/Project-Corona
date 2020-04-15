@@ -25,7 +25,6 @@ public class Kommentar {
         this.anvandareID = anvandareID;
     }
     
-    
     public boolean skrivaEnKommentarTillBlogg(int BloggID, String text){
         boolean resultat = false;
         String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
@@ -33,13 +32,19 @@ public class Kommentar {
         try{
             
         // Kontrollera om BloggID finns i databasen
+        String fraga = "SELCT ID FROM BLOGG WHERE ID = " + BloggID;
+        int res = Integer.parseInt(this.db.fetchSingle(fraga));
+        
+        if(BloggID == res){
+            
+        }
         
         // om bloggID finns kontrollera att text är mindre än 3000 ord (alltså length).
         
         // lägg till sedan en kommentar i databasen
         // alltså lägg till i "kommentar" och "kommentarer_till_blogg" tabellen
            int nyKommentarID = Integer.parseInt(db.getAutoIncrement("KOMMENTAR", "ID"));
-        String fraga = "Insert into kommentar(ID, TEXT, SKAPAD) VALUES(" +nyKommentarID+ ","
+        fraga = "Insert into kommentar(ID, TEXT, SKAPAD) VALUES(" +nyKommentarID+ ","
                 + text + "," + date + ")"; 
         
         this.db.insert(fraga);

@@ -409,7 +409,7 @@ public class Anvandare {
         String query = this.fixaListaMedIds(bloggIDs);
 
         try {
-            String fraga = "SELECT KOMMENTARID FROM KOMMENTARER_TILL_BLOGG WHERE BLOGGID in " + query + " rows 1 to " + limit;
+            String fraga = "SELECT KOMMENTARID FROM KOMMENTARER_TILL_BLOGG WHERE BLOGGID IN " + query + " rows 1 to " + limit;
             ArrayList<HashMap<String, String>> res1 = this.db.fetchRows(fraga);
             System.out.println("HEJ!");
             System.out.println(bloggIDs);
