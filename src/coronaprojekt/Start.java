@@ -33,6 +33,7 @@ private static InfDB minDatabaskoppling;
             directory = folder + ("/db/CORONAPROJEKT.FDB");
             } else{
             directory = folder + ("\\db\\CORONAPROJEKT.FDB");
+            System.out.println("j path. " + directory);
             }
             System.out.println(directory);
            
@@ -64,6 +65,7 @@ private static InfDB minDatabaskoppling;
             //new FilGUI().setVisible(true);
             Anvandare obj1 = new Anvandare(minDatabaskoppling, 3, 10);
             obj1.testlaggTillAnvandare();
+            //new SkapaBlogginlagg(minDatabaskoppling, 2, "informell").setVisible(true);
         }catch(InfException ettUndantag){
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Intern felmeddelande " + ettUndantag.getMessage());
