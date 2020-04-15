@@ -93,6 +93,9 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TxtAreaBloggTextFocusGained"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
