@@ -6,19 +6,25 @@
 package coronaprojekt;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import oru.inf.InfDB;
+import oru.inf.InfException;
 
 /**
  *
  * @author Simon Sandberg
  */
 public class Login_Page extends javax.swing.JFrame {
-
+public static InfDB minDatabaskoppling;
+    private boolean admin;
     /**
      * Creates new form Login_Page
      */
-    public Login_Page() {
+    public Login_Page(InfDB minDatabaskoppling) {
         initComponents();
         initLoginScreen();
+                        this.minDatabaskoppling = minDatabaskoppling; 
+
     }
 
     /**
@@ -45,17 +51,18 @@ public class Login_Page extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         anv_Txt_Fld.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        anv_Txt_Fld.setForeground(new java.awt.Color(0, 0, 0));
         getContentPane().add(anv_Txt_Fld);
         anv_Txt_Fld.setBounds(160, 80, 160, 40);
 
         anv_Pass_Fld.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        anv_Pass_Fld.setForeground(new java.awt.Color(0, 0, 0));
         getContentPane().add(anv_Pass_Fld);
         anv_Pass_Fld.setBounds(160, 140, 160, 40);
 
         login_btn.setForeground(new java.awt.Color(255, 255, 255));
         login_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                login_btnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 login_btnMouseEntered(evt);
             }
@@ -111,6 +118,46 @@ public class Login_Page extends javax.swing.JFrame {
         login_btn.setVisible(true);
     }//GEN-LAST:event_login_btnMouseReleased
 
+    private void login_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_btnMouseClicked
+              try{
+            String anvandarnamn = anv_Txt_Fld.getText();
+            String losenord = anv_Pass_Fld.getText();
+            String hittaAnvandarnamn = "select Anvandarnamn from Anvandare where Anvandarnamn ='" + anvandarnamn + "';";
+            String resultat = minDatabaskoppling.fetchSingle(hittaAnvandarnamn);
+            if(resultat != null) {
+                String sql1 = "select Losenord from Anvandare where Anvandarnamn ='" + anvandarnamn + "';";
+                String result1 = minDatabaskoppling.fetchSingle(sql1);
+                String sql2 = "select IsAdmin from Anvandare where Anvandarnamn ='" + anvandarnamn + "'";
+                String inloggadAdmin = minDatabaskoppling.fetchSingle(sql2);
+                if(result1.equals(losenord) && inloggadAdmin.equals("J")) {
+
+                    this.setVisible(false);
+                          new Main_Page(minDatabaskoppling).setVisible(true);
+
+                    
+                    admin = true;
+                }
+                else if(result1.equals(losenord)){
+                    admin = false;
+                    this.setVisible(false);
+                    new Main_Page(minDatabaskoppling).setVisible(true);    
+                    
+                }  
+                else{
+                    System.out.println("Ogiltigt lösenord");
+                    JOptionPane.showMessageDialog(null, "Ogiltigt lösenord");
+                }
+            }
+            else{
+                System.out.println("Ogiltigt användarnamn");
+                JOptionPane.showMessageDialog(null, "Ogiltigt användarnamn");
+            }
+        }
+        catch(InfException undantag){
+            System.out.println("Fel: " + undantag.getMessage());
+        } 
+    }//GEN-LAST:event_login_btnMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -141,7 +188,7 @@ public class Login_Page extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login_Page().setVisible(true);
+                new Login_Page(minDatabaskoppling).setVisible(true);
             }
         });
     }
