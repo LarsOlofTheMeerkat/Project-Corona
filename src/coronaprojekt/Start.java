@@ -50,22 +50,17 @@ private static InfDB minDatabaskoppling;
             installningar.put("bloggnotis", true);
             installningar.put("kommentarer", true);
             installningar.put("bloggtags", true);
-
             ArrayList res = obj1.anvandarSidan(installningar);
-
             System.out.println(res);*/
-
             //Blogg test = new Blogg(minDatabaskoppling, 10);
-
             //System.out.println(test.hamtaFormellaBloggInlagg());
-
             // Skicka databasen till en sida
             // new LoginScreen(minDatabaskoppling).setVisible(true);
             //new Main_Page().setVisible(true);
-
-            Anvandare obj1 = new Anvandare(minDatabaskoppling, 3, 10);
-            obj1.testlaggTillAnvandare();
-            new FilGUI(minDatabaskoppling).setVisible(true);
+            new SkapaBlogginlagg(minDatabaskoppling, 2,"infromell").setVisible(true);
+            //Anvandare obj1 = new Anvandare(minDatabaskoppling, 3, 10);
+            //obj1.testlaggTillAnvandare();
+            //new FilGUI(minDatabaskoppling).setVisible(true);
             //Anvandare obj1 = new Anvandare(minDatabaskoppling, 3, 10);
             //obj1.testlaggTillAnvandare();
         }catch(InfException ettUndantag){

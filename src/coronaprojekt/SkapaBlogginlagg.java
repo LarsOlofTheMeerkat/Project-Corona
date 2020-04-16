@@ -6,6 +6,15 @@
 package coronaprojekt;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
 import oru.inf.InfDB;
@@ -20,6 +29,8 @@ public class SkapaBlogginlagg extends javax.swing.JFrame {
     private String vilkenBlogg;
     private String choosenFile;
     private int anvandareID;
+    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
     /**
      * Creates new form SkapaBlogginlagg
      * @param idb
@@ -59,6 +70,11 @@ public class SkapaBlogginlagg extends javax.swing.JFrame {
 
         TxtAreaBloggText.setColumns(20);
         TxtAreaBloggText.setRows(5);
+        TxtAreaBloggText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TxtAreaBloggTextFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(TxtAreaBloggText);
 
         BtnAddFile.setText("Bifoga fil");
@@ -139,10 +155,14 @@ public class SkapaBlogginlagg extends javax.swing.JFrame {
             if (!choosenFile.isEmpty()){
                 sparaInfoBifogadFil(bloggpost_id);
             } 
+            TxtAreaBloggText.setText("");
+            lblChoosenFile.setText("");
         } catch (InfException e) {
             System.out.println("btn add post" + e);
+        } catch (IOException ex) {
+            Logger.getLogger(SkapaBlogginlagg.class.getName()).log(Level.SEVERE, null, ex);
         }
-        lblConfirmAddedPost.setText("Your post has been saved!");
+        lblConfirmAddedPost.setText("Ditt inlägg har skickats!");
     }//GEN-LAST:event_BtnAddPostActionPerformed
 
     private void BtnAddFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddFileActionPerformed
@@ -163,13 +183,72 @@ public class SkapaBlogginlagg extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnAddFileActionPerformed
 
-    private void sparaInfoBifogadFil(int bloggpost_id){
+    private void TxtAreaBloggTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TxtAreaBloggTextFocusGained
+        lblConfirmAddedPost.setText("");
+    }//GEN-LAST:event_TxtAreaBloggTextFocusGained
+    
+    private String getCurrentDateTime(){
+        LocalDate localDate = LocalDate.now();
+        return DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate);
+    }
+    
+    private boolean fileExists(String pathToFile){
+        File file = new File(pathToFile);
+        return file.exists();
+    }
+    
+    private String findAvailableFileName(String fileName){        
+        int i = 1;
+        boolean availableNameFound = false;
+        while(!availableNameFound){
+            String newFileName = "("+i+")"+fileName;
+            String folder = System.getProperty("user.dir"); 
+            String fileDest = folder + ("\\anvandarFiler\\"+newFileName);
+            if(fileExists(fileDest)){
+                i++;
+            }
+            else{
+                return fileDest;
+            }
+        }  
+        return null;
+    }
+    
+    private void copyFileToDir(String pathToFile){
+        try {
+            String separator = "\\";
+            String[] arr=pathToFile.replaceAll(Pattern.quote(separator), "\\\\").split("\\\\");
+            String fileName = arr[arr.length-1];
+
+            String folder = System.getProperty("user.dir"); 
+            String fileDest = folder + ("\\anvandarFiler\\"+fileName);
+ 
+            if(fileExists(fileDest)){
+                fileDest = findAvailableFileName(fileName);
+            }
+                     
+            Path src = Paths.get(pathToFile);
+            Path dest = Paths.get(fileDest);
+            Files.copy(src, dest);
+
+        } catch (IOException ex) {
+            System.out.println("Failed copyFileToDir: "+ex);
+        }
+    }
+    
+    private void sparaInfoBifogadFil(int bloggpost_id) throws IOException{
         String separator = "\\";
         String[] arr=choosenFile.replaceAll(Pattern.quote(separator), "\\\\").split("\\\\");
         String fileName = arr[arr.length-1];
+        
+        String folder = System.getProperty("user.dir"); 
+        String fileDest = folder + ("\\anvandarFiler\\"+fileName);
+      
+        copyFileToDir(choosenFile);
+        
         try{
             int fil_id = Integer.parseInt(idb.getAutoIncrement("fil", "ID"));
-            idb.insert("INSERT INTO FIL (ID, SOKVAG, INFORMATION) VALUES ('"+fil_id+"', '"+choosenFile+"', '"+fileName+"')");
+            idb.insert("INSERT INTO FIL (ID, SOKVAG, INFORMATION, SKAPAD) VALUES ('"+fil_id+"', '"+fileDest+"', '"+fileName+"', '"+getCurrentDateTime()+"')");
             idb.insert("INSERT INTO FILER_TILL_BLOGG (FILID, BLOGGID) VALUES ('"+fil_id+"', '"+bloggpost_id+"')");
         }catch(InfException e){
             System.out.println("sparaInfoBifogadFil " + e);

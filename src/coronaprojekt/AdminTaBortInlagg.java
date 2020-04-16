@@ -48,7 +48,7 @@ public class AdminTaBortInlagg {
             }
  
         } catch (InfException e) {
-            System.out.println("Something went wrong" + e);
+            System.out.println("Något gick fel!" + e);
         }
 
         return resultat;
