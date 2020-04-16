@@ -20,13 +20,15 @@ import javax.swing.JOptionPane;
  * @author Simon Sandberg
  */
 public class Main_Page extends javax.swing.JFrame {
-
+    public static InfDB minDatabaskoppling;
     /**
      * Creates new form Main_Page
      */
-    public Main_Page() {
+    public Main_Page(InfDB minDatabaskoppling) {
         initComponents();
         initMainWindow();
+                this.minDatabaskoppling = minDatabaskoppling; 
+
     }
 
     /**
@@ -572,7 +574,7 @@ public class Main_Page extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main_Page().setVisible(true);
+                new Main_Page(minDatabaskoppling).setVisible(true);
             }
         });
     }
