@@ -65,6 +65,35 @@ public class Blogg {
         
     }
     
+    public ArrayList hamtaBloggInlaggMedAnvandare(ArrayList<HashMap<String, String>> bloggar){
+        
+        ArrayList<HashMap<String, String>> res = new ArrayList();
+        try {
+            String fraga = "";
+            HashMap<String, String> res1 = new HashMap<>();
+            HashMap<String, String> newRow = new HashMap<>();
+            for(int i = 0; i < bloggar.size(); i++){
+                fraga = "SELECT * FROM ANVANDARE WHERE ID = " + bloggar.get(i).get("ANVANDAREID");
+                res1 = this.db.fetchRow(fraga);
+                newRow.put("ANVANDAREID", bloggar.get(i).get("ANVANDAREID"));
+                newRow.put("NAMN", res1.get("NAMN"));
+                newRow.put("TEXT", bloggar.get(i).get("TEXT"));
+                newRow.put("INFORMELL", bloggar.get(i).get("INFORMELL"));
+                newRow.put("SKAPAD", bloggar.get(i).get("SKAPAD"));
+                res.add(newRow);
+            }
+
+
+        } catch (InfException e) {
+            System.out.println(e);
+            System.out.println("Something went wrong");
+        }
+
+        return res;
+        
+    }
+    
+    
     
     
     
