@@ -55,8 +55,8 @@ private static InfDB minDatabaskoppling;
             //Blogg test = new Blogg(minDatabaskoppling, 10);
             //System.out.println(test.hamtaFormellaBloggInlagg());
             // Skicka databasen till en sida
-            new Login_Page(minDatabaskoppling).setVisible(true);
-            //new Main_Page().setVisible(true);
+            //new Login_Page(minDatabaskoppling).setVisible(true);
+            new Main_Page(minDatabaskoppling).setVisible(true);
             //new SkapaBlogginlagg(minDatabaskoppling, 2,"infromell").setVisible(true);
             //Anvandare obj1 = new Anvandare(minDatabaskoppling, 3, 10);
             //obj1.testlaggTillAnvandare();

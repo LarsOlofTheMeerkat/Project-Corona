@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package coronaprojekt;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -15,19 +16,22 @@ import javax.swing.table.DefaultTableModel;
 import java.lang.IllegalArgumentException;
 import oru.inf.InfException;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Simon Sandberg
  */
 public class Main_Page extends javax.swing.JFrame {
+
     public static InfDB minDatabaskoppling;
+
     /**
      * Creates new form Main_Page
      */
     public Main_Page(InfDB minDatabaskoppling) {
         initComponents();
         initMainWindow();
-                this.minDatabaskoppling = minDatabaskoppling; 
+        this.minDatabaskoppling = minDatabaskoppling;
 
     }
 
@@ -49,6 +53,14 @@ public class Main_Page extends javax.swing.JFrame {
         newsflow_Panel = new javax.swing.JPanel();
         blogg_Window_Formel = new javax.swing.JScrollPane();
         formel_Blogg_Panel = new javax.swing.JPanel();
+        create_Post_Btn = new javax.swing.JPanel();
+        make_Post_Panel = new javax.swing.JPanel();
+        txt_Area_Scroll = new javax.swing.JScrollPane();
+        txt_Area = new javax.swing.JTextArea();
+        catagory_Box = new javax.swing.JComboBox<>();
+        file_btn = new javax.swing.JButton();
+        post_btn = new javax.swing.JButton();
+        lblChoosenFIle = new javax.swing.JLabel();
         blogg_Window_Informell = new javax.swing.JScrollPane();
         informell_Blogg_Panel = new javax.swing.JPanel();
         blogg_Window_Projekt = new javax.swing.JScrollPane();
@@ -189,15 +201,93 @@ public class Main_Page extends javax.swing.JFrame {
             }
         });
 
+        create_Post_Btn.setBackground(new java.awt.Color(102, 204, 255));
+        create_Post_Btn.setPreferredSize(new java.awt.Dimension(480, 60));
+        create_Post_Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                create_Post_BtnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout create_Post_BtnLayout = new javax.swing.GroupLayout(create_Post_Btn);
+        create_Post_Btn.setLayout(create_Post_BtnLayout);
+        create_Post_BtnLayout.setHorizontalGroup(
+            create_Post_BtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 480, Short.MAX_VALUE)
+        );
+        create_Post_BtnLayout.setVerticalGroup(
+            create_Post_BtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        make_Post_Panel.setBackground(new java.awt.Color(51, 255, 204));
+
+        txt_Area.setColumns(20);
+        txt_Area.setRows(5);
+        txt_Area_Scroll.setViewportView(txt_Area);
+
+        file_btn.setText("Choose File");
+
+        post_btn.setText("Lägg Upp");
+        post_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                post_btnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout make_Post_PanelLayout = new javax.swing.GroupLayout(make_Post_Panel);
+        make_Post_Panel.setLayout(make_Post_PanelLayout);
+        make_Post_PanelLayout.setHorizontalGroup(
+            make_Post_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(make_Post_PanelLayout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(make_Post_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_Area_Scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, make_Post_PanelLayout.createSequentialGroup()
+                        .addComponent(catagory_Box, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(file_btn))
+                    .addComponent(post_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblChoosenFIle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
+        );
+        make_Post_PanelLayout.setVerticalGroup(
+            make_Post_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(make_Post_PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txt_Area_Scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(make_Post_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(catagory_Box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(file_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblChoosenFIle, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(post_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
         javax.swing.GroupLayout formel_Blogg_PanelLayout = new javax.swing.GroupLayout(formel_Blogg_Panel);
         formel_Blogg_Panel.setLayout(formel_Blogg_PanelLayout);
         formel_Blogg_PanelLayout.setHorizontalGroup(
             formel_Blogg_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1521, Short.MAX_VALUE)
+            .addGroup(formel_Blogg_PanelLayout.createSequentialGroup()
+                .addGap(487, 487, 487)
+                .addGroup(formel_Blogg_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(create_Post_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(formel_Blogg_PanelLayout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(make_Post_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(663, Short.MAX_VALUE))
         );
         formel_Blogg_PanelLayout.setVerticalGroup(
             formel_Blogg_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1117, Short.MAX_VALUE)
+            .addGroup(formel_Blogg_PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(create_Post_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(make_Post_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(769, Short.MAX_VALUE))
         );
 
         blogg_Window_Formel.setViewportView(formel_Blogg_Panel);
@@ -356,7 +446,7 @@ public class Main_Page extends javax.swing.JFrame {
     private void informell_Blogg_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_informell_Blogg_btnMouseEntered
         informell_Blogg_btn.setBackground(hoverColorBtn);
         informell_Blogg_btn.setVisible(false);
-        informell_Blogg_btn.setVisible(true);       
+        informell_Blogg_btn.setVisible(true);
     }//GEN-LAST:event_informell_Blogg_btnMouseEntered
 
     private void informell_Blogg_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_informell_Blogg_btnMouseExited
@@ -453,7 +543,7 @@ public class Main_Page extends javax.swing.JFrame {
         account_btn.setBackground(clickedColorBtn);
         account_btn.setVisible(false);
         account_btn.setVisible(true);
-        
+
     }//GEN-LAST:event_account_btnMousePressed
 
     private void account_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_account_btnMouseReleased
@@ -466,7 +556,7 @@ public class Main_Page extends javax.swing.JFrame {
         formel_Blogg_Panel.setBackground(baseColorBtn);
         formel_Blogg_Panel.setVisible(false);
         formel_Blogg_Panel.setVisible(true);
-        
+
         blogg_Window_Formel.setBackground(baseColorBtn);
         blogg_Window_Formel.setVisible(false);
         blogg_Window_Formel.setVisible(true);
@@ -475,12 +565,12 @@ public class Main_Page extends javax.swing.JFrame {
     private void formel_Blogg_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formel_Blogg_btnMouseClicked
         blogg_Window_Formel.setVisible(true);
         formel_Blogg_Panel.setVisible(true);
-       
+
         blogg_Window_Informell.setVisible(false);
         informell_Blogg_Panel.setVisible(false);
-        
+
         konto_Panel.setVisible(false);
-        
+
         blogg_Window_Projekt.setVisible(false);
         projekt_Blogg_Panel.setVisible(false);
     }//GEN-LAST:event_formel_Blogg_btnMouseClicked
@@ -488,12 +578,12 @@ public class Main_Page extends javax.swing.JFrame {
     private void informell_Blogg_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_informell_Blogg_btnMouseClicked
         blogg_Window_Informell.setVisible(true);
         informell_Blogg_Panel.setVisible(true);
-        
+
         blogg_Window_Formel.setVisible(false);
         formel_Blogg_Panel.setVisible(false);
-        
+
         konto_Panel.setVisible(false);
-        
+
         blogg_Window_Projekt.setVisible(false);
         projekt_Blogg_Panel.setVisible(false);
     }//GEN-LAST:event_informell_Blogg_btnMouseClicked
@@ -502,7 +592,7 @@ public class Main_Page extends javax.swing.JFrame {
         informell_Blogg_Panel.setBackground(baseColorBtn);
         informell_Blogg_Panel.setVisible(false);
         informell_Blogg_Panel.setVisible(true);
-        
+
         blogg_Window_Informell.setBackground(baseColorBtn);
         blogg_Window_Informell.setVisible(false);
         blogg_Window_Informell.setVisible(true);
@@ -510,13 +600,13 @@ public class Main_Page extends javax.swing.JFrame {
 
     private void account_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_account_btnMouseClicked
         konto_Panel.setVisible(true);
-        
+
         blogg_Window_Formel.setVisible(false);
         formel_Blogg_Panel.setVisible(false);
-       
+
         blogg_Window_Informell.setVisible(false);
         informell_Blogg_Panel.setVisible(false);
-        
+
         blogg_Window_Projekt.setVisible(false);
         projekt_Blogg_Panel.setVisible(false);
     }//GEN-LAST:event_account_btnMouseClicked
@@ -524,13 +614,13 @@ public class Main_Page extends javax.swing.JFrame {
     private void projects_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_projects_btnMouseClicked
         blogg_Window_Projekt.setVisible(true);
         projekt_Blogg_Panel.setVisible(true);
-        
+
         blogg_Window_Formel.setVisible(false);
         formel_Blogg_Panel.setVisible(false);
-       
+
         blogg_Window_Informell.setVisible(false);
         informell_Blogg_Panel.setVisible(false);
-        
+
         konto_Panel.setVisible(false);
     }//GEN-LAST:event_projects_btnMouseClicked
 
@@ -538,11 +628,47 @@ public class Main_Page extends javax.swing.JFrame {
         projekt_Blogg_Panel.setBackground(baseColorBtn);
         projekt_Blogg_Panel.setVisible(false);
         projekt_Blogg_Panel.setVisible(true);
-        
+
         blogg_Window_Projekt.setBackground(baseColorBtn);
         blogg_Window_Projekt.setVisible(false);
         blogg_Window_Projekt.setVisible(true);
     }//GEN-LAST:event_blogg_Window_ProjektMouseWheelMoved
+
+    private void create_Post_BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_create_Post_BtnMouseClicked
+        if (make_Post_Panel.isShowing() == false) {
+            System.out.println("We in!!!");
+            BloggInlagg bL = new BloggInlagg(minDatabaskoppling, 1, "N");
+            catagory_Box = bL.cboxSkrivUtKategorier(catagory_Box);
+
+            make_Post_Panel.setVisible(true);
+
+            formel_Blogg_Panel.setBackground(baseColorBtn);
+            formel_Blogg_Panel.setVisible(false);
+            formel_Blogg_Panel.setVisible(true);
+
+            blogg_Window_Formel.setBackground(baseColorBtn);
+            blogg_Window_Formel.setVisible(false);
+            blogg_Window_Formel.setVisible(true);
+        }
+    }//GEN-LAST:event_create_Post_BtnMouseClicked
+
+    private void post_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_post_btnMouseClicked
+        if (make_Post_Panel.isShowing() == true) {
+            System.out.println("Wesa in!!!");
+            BloggInlagg bL = new BloggInlagg(minDatabaskoppling, 1, "N");
+            bL.addPost(catagory_Box, txt_Area, lblChoosenFIle);
+
+            make_Post_Panel.setVisible(false);
+            
+            formel_Blogg_Panel.setBackground(baseColorBtn);
+            formel_Blogg_Panel.setVisible(false);
+            formel_Blogg_Panel.setVisible(true);
+
+            blogg_Window_Formel.setBackground(baseColorBtn);
+            blogg_Window_Formel.setVisible(false);
+            blogg_Window_Formel.setVisible(true);
+        }
+    }//GEN-LAST:event_post_btnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -586,6 +712,9 @@ public class Main_Page extends javax.swing.JFrame {
     private javax.swing.JScrollPane blogg_Window_Formel;
     private javax.swing.JScrollPane blogg_Window_Informell;
     private javax.swing.JScrollPane blogg_Window_Projekt;
+    private javax.swing.JComboBox<String> catagory_Box;
+    private javax.swing.JPanel create_Post_Btn;
+    private javax.swing.JButton file_btn;
     private javax.swing.JLabel formBlg_Lbl;
     private javax.swing.JPanel formel_Blogg_Panel;
     private javax.swing.JPanel formel_Blogg_btn;
@@ -593,56 +722,65 @@ public class Main_Page extends javax.swing.JFrame {
     private javax.swing.JPanel informell_Blogg_Panel;
     private javax.swing.JPanel informell_Blogg_btn;
     private javax.swing.JPanel konto_Panel;
+    private javax.swing.JLabel lblChoosenFIle;
+    private javax.swing.JPanel make_Post_Panel;
     private javax.swing.JPanel newsflow_Panel;
     private javax.swing.JPanel notis_btn;
     private javax.swing.JLabel notis_lbl;
+    private javax.swing.JButton post_btn;
     private javax.swing.JLabel projBtn_Lbl;
     private javax.swing.JPanel projects_btn;
     private javax.swing.JPanel projekt_Blogg_Panel;
+    private javax.swing.JTextArea txt_Area;
+    private javax.swing.JScrollPane txt_Area_Scroll;
     // End of variables declaration//GEN-END:variables
 
     private Color hoverColorBtn = new Color(41, 205, 255, 200);
     private Color baseColorBtn = new Color(3, 194, 252, 150);
     private Color clickedColorBtn = new Color(117, 223, 255, 200);
+
     //Initierar alla delar av huvud UI
-    public void initMainWindow()
-    {
+    public void initMainWindow() {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+
         formel_Blogg_btn.setBackground(baseColorBtn);
-        
+
         informell_Blogg_btn.setBackground(baseColorBtn);
-        
+
         projects_btn.setBackground(baseColorBtn);
-        
+
         blogg_Window_Formel.setBackground(baseColorBtn);
         blogg_Window_Formel.getViewport().setOpaque(false);
         formel_Blogg_Panel.setBackground(baseColorBtn);
         formel_Blogg_Panel.setOpaque(false);
-        
+
         newsflow_Panel.setBackground(baseColorBtn);
-        
+
         blogg_Window_Informell.setBackground(baseColorBtn);
         blogg_Window_Informell.getViewport().setOpaque(false);
         blogg_Window_Informell.setVisible(false);
         informell_Blogg_Panel.setBackground(baseColorBtn);
         informell_Blogg_Panel.setOpaque(false);
         informell_Blogg_Panel.setVisible(false);
-        
+
         blogg_Window_Projekt.setBackground(baseColorBtn);
         blogg_Window_Projekt.getViewport().setOpaque(false);
         blogg_Window_Projekt.setVisible(false);
         projekt_Blogg_Panel.setBackground(baseColorBtn);
         projekt_Blogg_Panel.setOpaque(false);
         projekt_Blogg_Panel.setVisible(false);
-        
+
         notis_btn.setBackground(baseColorBtn);
-        
+
         account_btn.setBackground(baseColorBtn);
-        
+
         konto_Panel.setBackground(baseColorBtn);
         konto_Panel.setVisible(false);
-        
-        System.out.println("Init of Main Page Complete");    
-    };
+
+        create_Post_Btn.setVisible(true);
+        make_Post_Panel.setVisible(false);
+
+        System.out.println("Init of Main Page Complete");
+    }
+;
 }
