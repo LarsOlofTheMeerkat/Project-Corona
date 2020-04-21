@@ -41,10 +41,12 @@ public class BloggInlagg {
 
     public void addPost(javax.swing.JComboBox<String> cboxValjKategori,
             javax.swing.JTextArea TxtAreaBloggText,
-            javax.swing.JLabel lblChoosenFile) {
+            javax.swing.JLabel lblChoosenFile,
+            javax.swing.JTextField rubrik) {
         String kategori = cboxValjKategori.getSelectedItem().toString();
         String bloggText = TxtAreaBloggText.getText();
         String informell;
+        String bloggRubrik = rubrik.getText();
         if (vilkenBlogg.equals("informell")) {
             informell = "J";
         } else {
@@ -53,7 +55,7 @@ public class BloggInlagg {
         try {
             int bloggpost_id = Integer.parseInt(idb.getAutoIncrement("blogg", "ID"));
             String kategori_id = idb.fetchSingle("SELECT id from kategori where namn = '" + kategori + "'");
-            idb.insert("INSERT INTO BLOGG (ID, TEXT, ANVANDAREID, INFORMELL) VALUES ('" + bloggpost_id + "', '" + bloggText + "', '" + anvandareID + "', '" + informell + "')");
+            idb.insert("INSERT INTO BLOGG (ID, TEXT, ANVANDAREID, INFORMELL, SKAPAD, RUBRIK) VALUES ('" + bloggpost_id + "', '" + bloggText + "', '" + anvandareID + "', '" + informell + "', '" + getCurrentDateTime() +"', '" + bloggRubrik +"')");
             idb.insert("INSERT INTO BLOGG_TILLHOR_KATEGORI (KATEGORIID, BLOGGID) VALUES ('" + kategori_id + "', '" + bloggpost_id + "')");
             if (!choosenFile.isEmpty()) {
                 sparaInfoBifogadFil(bloggpost_id);

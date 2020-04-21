@@ -54,6 +54,7 @@ public class Main_Page extends javax.swing.JFrame {
         blogg_Window_Formel = new javax.swing.JScrollPane();
         formel_Blogg_Panel = new javax.swing.JPanel();
         create_Post_Btn = new javax.swing.JPanel();
+        create_Post_Lbl = new javax.swing.JLabel();
         make_Post_Panel = new javax.swing.JPanel();
         txt_Area_Scroll = new javax.swing.JScrollPane();
         txt_Area = new javax.swing.JTextArea();
@@ -61,6 +62,13 @@ public class Main_Page extends javax.swing.JFrame {
         file_btn = new javax.swing.JButton();
         post_btn = new javax.swing.JButton();
         lblChoosenFIle = new javax.swing.JLabel();
+        rubrik_Txt_Fld = new javax.swing.JTextField();
+        close_Create_Post_btn = new javax.swing.JButton();
+        text_Post = new javax.swing.JPanel();
+        post_text_Scroll_1 = new javax.swing.JScrollPane();
+        post_Text_Area_1 = new javax.swing.JTextArea();
+        username_Lbl_1 = new javax.swing.JLabel();
+        rubrik_Lbl_1 = new javax.swing.JLabel();
         blogg_Window_Informell = new javax.swing.JScrollPane();
         informell_Blogg_Panel = new javax.swing.JPanel();
         blogg_Window_Projekt = new javax.swing.JScrollPane();
@@ -201,37 +209,81 @@ public class Main_Page extends javax.swing.JFrame {
             }
         });
 
+        formel_Blogg_Panel.setForeground(new java.awt.Color(255, 255, 255));
+
         create_Post_Btn.setBackground(new java.awt.Color(102, 204, 255));
+        create_Post_Btn.setMaximumSize(new java.awt.Dimension(480, 60));
         create_Post_Btn.setPreferredSize(new java.awt.Dimension(480, 60));
         create_Post_Btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 create_Post_BtnMouseClicked(evt);
             }
         });
+        create_Post_Btn.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout create_Post_BtnLayout = new javax.swing.GroupLayout(create_Post_Btn);
-        create_Post_Btn.setLayout(create_Post_BtnLayout);
-        create_Post_BtnLayout.setHorizontalGroup(
-            create_Post_BtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
-        );
-        create_Post_BtnLayout.setVerticalGroup(
-            create_Post_BtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
+        create_Post_Lbl.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        create_Post_Lbl.setForeground(new java.awt.Color(255, 255, 255));
+        create_Post_Lbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        create_Post_Lbl.setText("Lägg Upp");
+        create_Post_Lbl.setMaximumSize(new java.awt.Dimension(480, 23));
+        create_Post_Btn.add(create_Post_Lbl, java.awt.BorderLayout.CENTER);
 
-        make_Post_Panel.setBackground(new java.awt.Color(51, 255, 204));
+        make_Post_Panel.setBackground(new java.awt.Color(3, 194, 252));
+        make_Post_Panel.setMaximumSize(new java.awt.Dimension(480, 386));
+        make_Post_Panel.setPreferredSize(new java.awt.Dimension(480, 386));
 
+        txt_Area_Scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        txt_Area_Scroll.setViewportBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.lightGray));
+
+        txt_Area.setBackground(new java.awt.Color(117, 223, 255));
         txt_Area.setColumns(20);
+        txt_Area.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txt_Area.setForeground(new java.awt.Color(255, 255, 255));
         txt_Area.setRows(5);
         txt_Area_Scroll.setViewportView(txt_Area);
 
+        catagory_Box.setBackground(new java.awt.Color(117, 223, 255));
+        catagory_Box.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        catagory_Box.setForeground(new java.awt.Color(255, 255, 255));
+
+        file_btn.setBackground(new java.awt.Color(117, 223, 255));
+        file_btn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        file_btn.setForeground(new java.awt.Color(255, 255, 255));
         file_btn.setText("Choose File");
 
+        post_btn.setBackground(new java.awt.Color(117, 223, 255));
+        post_btn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        post_btn.setForeground(new java.awt.Color(255, 255, 255));
         post_btn.setText("Lägg Upp");
         post_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 post_btnMouseClicked(evt);
+            }
+        });
+
+        lblChoosenFIle.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        lblChoosenFIle.setForeground(new java.awt.Color(255, 255, 255));
+
+        rubrik_Txt_Fld.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        rubrik_Txt_Fld.setForeground(new java.awt.Color(255, 255, 255));
+        rubrik_Txt_Fld.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        rubrik_Txt_Fld.setText("Rubrik...");
+        rubrik_Txt_Fld.setBorder(null);
+        rubrik_Txt_Fld.setCaretColor(new java.awt.Color(255, 255, 255));
+        rubrik_Txt_Fld.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                rubrik_Txt_FldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                rubrik_Txt_FldFocusLost(evt);
+            }
+        });
+
+        close_Create_Post_btn.setForeground(new java.awt.Color(255, 255, 255));
+        close_Create_Post_btn.setText("X");
+        close_Create_Post_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                close_Create_Post_btnMouseClicked(evt);
             }
         });
 
@@ -241,30 +293,77 @@ public class Main_Page extends javax.swing.JFrame {
             make_Post_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(make_Post_PanelLayout.createSequentialGroup()
                 .addGap(53, 53, 53)
-                .addGroup(make_Post_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_Area_Scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, make_Post_PanelLayout.createSequentialGroup()
-                        .addComponent(catagory_Box, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(file_btn))
+                .addGroup(make_Post_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(post_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblChoosenFIle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(64, Short.MAX_VALUE))
+                    .addGroup(make_Post_PanelLayout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(lblChoosenFIle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, make_Post_PanelLayout.createSequentialGroup()
+                        .addComponent(catagory_Box, 0, 108, Short.MAX_VALUE)
+                        .addGap(157, 157, 157)
+                        .addComponent(file_btn)))
+                .addGap(26, 26, 26)
+                .addComponent(close_Create_Post_btn))
+            .addComponent(txt_Area_Scroll)
+            .addComponent(rubrik_Txt_Fld)
         );
         make_Post_PanelLayout.setVerticalGroup(
             make_Post_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(make_Post_PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txt_Area_Scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(make_Post_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(catagory_Box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(file_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblChoosenFIle, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addGap(17, 17, 17)
+                .addComponent(rubrik_Txt_Fld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(post_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addComponent(txt_Area_Scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(make_Post_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(make_Post_PanelLayout.createSequentialGroup()
+                        .addGroup(make_Post_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(file_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(catagory_Box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblChoosenFIle, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(post_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))
+                    .addComponent(close_Create_Post_btn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        text_Post.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+
+        post_Text_Area_1.setColumns(20);
+        post_Text_Area_1.setRows(5);
+        post_text_Scroll_1.setViewportView(post_Text_Area_1);
+
+        username_Lbl_1.setText("jLabel1");
+
+        rubrik_Lbl_1.setText("jLabel2");
+
+        javax.swing.GroupLayout text_PostLayout = new javax.swing.GroupLayout(text_Post);
+        text_Post.setLayout(text_PostLayout);
+        text_PostLayout.setHorizontalGroup(
+            text_PostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(text_PostLayout.createSequentialGroup()
+                .addGroup(text_PostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(text_PostLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(username_Lbl_1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(text_PostLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(text_PostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(post_text_Scroll_1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                            .addComponent(rubrik_Lbl_1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+        text_PostLayout.setVerticalGroup(
+            text_PostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(text_PostLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(username_Lbl_1)
+                .addGap(32, 32, 32)
+                .addComponent(rubrik_Lbl_1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(post_text_Scroll_1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout formel_Blogg_PanelLayout = new javax.swing.GroupLayout(formel_Blogg_Panel);
@@ -272,22 +371,23 @@ public class Main_Page extends javax.swing.JFrame {
         formel_Blogg_PanelLayout.setHorizontalGroup(
             formel_Blogg_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(formel_Blogg_PanelLayout.createSequentialGroup()
-                .addGap(487, 487, 487)
+                .addGap(488, 488, 488)
                 .addGroup(formel_Blogg_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(create_Post_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(formel_Blogg_PanelLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(make_Post_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(663, Short.MAX_VALUE))
+                    .addComponent(text_Post, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(create_Post_Btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(make_Post_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(1041, Short.MAX_VALUE))
         );
         formel_Blogg_PanelLayout.setVerticalGroup(
             formel_Blogg_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(formel_Blogg_PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(create_Post_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(make_Post_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(769, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(text_Post, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(472, Short.MAX_VALUE))
         );
 
         blogg_Window_Formel.setViewportView(formel_Blogg_Panel);
@@ -636,7 +736,6 @@ public class Main_Page extends javax.swing.JFrame {
 
     private void create_Post_BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_create_Post_BtnMouseClicked
         if (make_Post_Panel.isShowing() == false) {
-            System.out.println("We in!!!");
             BloggInlagg bL = new BloggInlagg(minDatabaskoppling, 1, "N");
             catagory_Box = bL.cboxSkrivUtKategorier(catagory_Box);
 
@@ -654,12 +753,29 @@ public class Main_Page extends javax.swing.JFrame {
 
     private void post_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_post_btnMouseClicked
         if (make_Post_Panel.isShowing() == true) {
-            System.out.println("Wesa in!!!");
-            BloggInlagg bL = new BloggInlagg(minDatabaskoppling, 1, "N");
-            bL.addPost(catagory_Box, txt_Area, lblChoosenFIle);
+            Login_Page user = new Login_Page(minDatabaskoppling);
+
+            String query = "";
+            String res = "";
+            int userID = 000;
+            String userName = user.getCurrentUserName();
+
+            try {
+                query = "select ID from Anvandare where Anvandarnamn ='" + userName + "';";
+                res = minDatabaskoppling.fetchSingle(query);
+            } catch (InfException undantag) {
+                System.out.println("Fel: " + undantag.getMessage());
+
+            }
+            if (res != null) {
+                userID = Integer.parseInt(res);
+            }
+
+            BloggInlagg bL = new BloggInlagg(minDatabaskoppling, userID, "N");
+            bL.addPost(catagory_Box, txt_Area, lblChoosenFIle, rubrik_Txt_Fld);
 
             make_Post_Panel.setVisible(false);
-            
+
             formel_Blogg_Panel.setBackground(baseColorBtn);
             formel_Blogg_Panel.setVisible(false);
             formel_Blogg_Panel.setVisible(true);
@@ -669,6 +785,37 @@ public class Main_Page extends javax.swing.JFrame {
             blogg_Window_Formel.setVisible(true);
         }
     }//GEN-LAST:event_post_btnMouseClicked
+
+    private void rubrik_Txt_FldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rubrik_Txt_FldFocusGained
+        if (rubrik_Txt_Fld.getText().equals("Rubrik...")) {
+            rubrik_Txt_Fld.setText("");
+        }
+    }//GEN-LAST:event_rubrik_Txt_FldFocusGained
+
+    private void rubrik_Txt_FldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rubrik_Txt_FldFocusLost
+        if (rubrik_Txt_Fld.getText().equals("")) {
+            rubrik_Txt_Fld.setText("Rubrik...");
+        }
+    }//GEN-LAST:event_rubrik_Txt_FldFocusLost
+
+    private void close_Create_Post_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_close_Create_Post_btnMouseClicked
+        if (make_Post_Panel.isShowing() == true) {
+
+            make_Post_Panel.setVisible(false);
+            rubrik_Txt_Fld.setText("Rubrik...");
+            txt_Area.setText("");
+
+            //Här ska det finnas en rad för att cleara eventuella valda filer
+            //----------------------------------------------------------------
+            formel_Blogg_Panel.setBackground(baseColorBtn);
+            formel_Blogg_Panel.setVisible(false);
+            formel_Blogg_Panel.setVisible(true);
+
+            blogg_Window_Formel.setBackground(baseColorBtn);
+            blogg_Window_Formel.setVisible(false);
+            blogg_Window_Formel.setVisible(true);
+        }
+    }//GEN-LAST:event_close_Create_Post_btnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -713,7 +860,9 @@ public class Main_Page extends javax.swing.JFrame {
     private javax.swing.JScrollPane blogg_Window_Informell;
     private javax.swing.JScrollPane blogg_Window_Projekt;
     private javax.swing.JComboBox<String> catagory_Box;
+    private javax.swing.JButton close_Create_Post_btn;
     private javax.swing.JPanel create_Post_Btn;
+    private javax.swing.JLabel create_Post_Lbl;
     private javax.swing.JButton file_btn;
     private javax.swing.JLabel formBlg_Lbl;
     private javax.swing.JPanel formel_Blogg_Panel;
@@ -727,17 +876,25 @@ public class Main_Page extends javax.swing.JFrame {
     private javax.swing.JPanel newsflow_Panel;
     private javax.swing.JPanel notis_btn;
     private javax.swing.JLabel notis_lbl;
+    private javax.swing.JTextArea post_Text_Area_1;
     private javax.swing.JButton post_btn;
+    private javax.swing.JScrollPane post_text_Scroll_1;
     private javax.swing.JLabel projBtn_Lbl;
     private javax.swing.JPanel projects_btn;
     private javax.swing.JPanel projekt_Blogg_Panel;
+    private javax.swing.JLabel rubrik_Lbl_1;
+    private javax.swing.JTextField rubrik_Txt_Fld;
+    private javax.swing.JPanel text_Post;
     private javax.swing.JTextArea txt_Area;
     private javax.swing.JScrollPane txt_Area_Scroll;
+    private javax.swing.JLabel username_Lbl_1;
     // End of variables declaration//GEN-END:variables
 
     private Color hoverColorBtn = new Color(41, 205, 255, 200);
     private Color baseColorBtn = new Color(3, 194, 252, 150);
     private Color clickedColorBtn = new Color(117, 223, 255, 200);
+    private Color uiColorsDark = new Color(0, 157, 204);
+    private Color uiColorsBase = new Color(3, 194, 252);
 
     //Initierar alla delar av huvud UI
     public void initMainWindow() {
@@ -779,6 +936,24 @@ public class Main_Page extends javax.swing.JFrame {
 
         create_Post_Btn.setVisible(true);
         make_Post_Panel.setVisible(false);
+        create_Post_Btn.setBackground(uiColorsBase);
+        make_Post_Panel.setBackground(uiColorsDark);
+        txt_Area_Scroll.setBackground(uiColorsBase);
+        txt_Area.setBackground(uiColorsBase);
+        lblChoosenFIle.setBackground(uiColorsDark);
+        file_btn.setBackground(uiColorsBase);
+        catagory_Box.setBackground(uiColorsBase);
+        post_btn.setBackground(uiColorsBase);
+        rubrik_Txt_Fld.setBackground(uiColorsDark);
+        close_Create_Post_btn.setBackground(uiColorsDark);
+
+        txt_Area.setLineWrap(true);
+        
+        text_Post.setBackground(uiColorsDark);
+        username_Lbl_1.setBackground(uiColorsBase);
+        rubrik_Lbl_1.setBackground(uiColorsBase);
+        post_Text_Area_1.setBackground(uiColorsBase);
+        post_text_Scroll_1.setBackground(uiColorsBase);
 
         System.out.println("Init of Main Page Complete");
     }
