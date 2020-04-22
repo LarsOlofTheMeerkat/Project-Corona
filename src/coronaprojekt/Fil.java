@@ -63,6 +63,23 @@ public class Fil {
         try{
             String fraga = "SELECT FILID FROM FILER_TILL_BLOGG WHERE BLOGGID = " + BloggID;
             ArrayList<HashMap<String, String>> res = this.db.fetchRows(fraga);
+            System.out.println(res);
+            if(res != null){
+                
+                resultat = this.skapaEnArrayMedEndastEttVarde(res, "FILID");
+                
+            }
+            
+        }catch(InfException e){
+            System.out.println(e);
+        }
+        return resultat;
+    }
+    public ArrayList hamtaFilIDsMedArtikelID(int ArtikelID){
+        ArrayList resultat = new ArrayList();
+        try{
+            String fraga = "SELECT FILID FROM FILER_TILL_ARTIKEL WHERE ARTIKELID = " + ArtikelID;
+            ArrayList<HashMap<String, String>> res = this.db.fetchRows(fraga);
             
             if(res != null){
                 

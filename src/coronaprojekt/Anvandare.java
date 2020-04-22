@@ -34,6 +34,7 @@ public class Anvandare {
     
     public void testlaggTillAnvandare(){
         try{
+            
             int id = Integer.parseInt(this.db.fetchSingle("SELECT MAX(ID) FROM ANVANDARE")) + 1;
             String anvnamn = "test";
             String losen = "test";
@@ -47,9 +48,6 @@ public class Anvandare {
            System.out.println(laggTillAnvandare);
             this.db.insert(laggTillAnvandare);
             
-            
-
-
         }
         catch(InfException ettUndantag){
             System.out.println("Fel");

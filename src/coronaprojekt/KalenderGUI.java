@@ -82,7 +82,6 @@ public class KalenderGUI extends javax.swing.JFrame {
         
         Mote moteObj = new Mote(this.db, 1, 10);
         System.out.println(moteObj.hamtaMinaMotenMellanTvaDatum(datum1, datum2));
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

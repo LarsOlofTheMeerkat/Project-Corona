@@ -101,7 +101,6 @@ public class Mote {
     Tacka ja eller nej till ett möte
     */
     public boolean svaraPaMote(int moteId, int AnvandareID, String deltar){
-        
         boolean resultat = false;
         try{
             if(deltar.equals("J") || deltar.equals("N")){
