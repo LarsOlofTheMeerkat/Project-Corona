@@ -37,7 +37,13 @@ public class Blogg {
         
         ArrayList<HashMap<String, String>> res = new ArrayList();
         try {
-            String fraga = "SELECT * FROM BLOGG WHERE INFORMELL = 'J' ORDER BY skapad DESC rows 1 to " + limit;
+            String fraga1 = "SELECT MAX(ID) FROM BLOGG;";
+            String result = this.db.fetchSingle(fraga1);
+            int i = Integer.parseInt(result);
+            i = i-20;
+            result = Integer.toString(i);
+            
+            String fraga = "SELECT * FROM BLOGG WHERE INFORMELL = 'J' ORDER BY skapad DESC rows " + result + " to " + limit;
             res = this.db.fetchRows(fraga);
 
         } catch (InfException e) {
@@ -55,9 +61,11 @@ public class Blogg {
         try {
             String fraga1 = "SELECT MAX(ID) FROM BLOGG;";
             String result = this.db.fetchSingle(fraga1);
-            //int i = ;
+            int i = Integer.parseInt(result);
+            i = i-20;
+            result = Integer.toString(i);
             
-            String fraga2 = "SELECT * FROM BLOGG WHERE INFORMELL = 'N' ORDER BY skapad DESC rows 1 to " + limit;
+            String fraga2 = "SELECT * FROM BLOGG WHERE INFORMELL = 'N' ORDER BY skapad DESC rows " + result + " to " + limit;
             res = this.db.fetchRows(fraga2);
 
         } catch (InfException e) {
