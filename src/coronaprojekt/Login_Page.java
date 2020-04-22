@@ -6,6 +6,7 @@
 package coronaprojekt;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -221,6 +222,9 @@ public class Login_Page extends javax.swing.JFrame {
         anv_Pass_Fld.setBackground(baseColorSolidBtn);
 
         login_btn.setBackground(baseColorBtn);
+        
+        background_Image.setIcon(new ImageIcon(getClass().getResource("/coronaprojekt/resources/Oru_logo_rgb.png")));
+        
 
         System.out.println("Init of Login Screen Complete");
     }

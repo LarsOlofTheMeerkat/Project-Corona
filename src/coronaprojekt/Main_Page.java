@@ -14,6 +14,7 @@ import oru.inf.InfDB;
 import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 import java.lang.IllegalArgumentException;
+import javax.swing.ImageIcon;
 import oru.inf.InfException;
 import javax.swing.JOptionPane;
 
@@ -765,7 +766,6 @@ public class Main_Page extends javax.swing.JFrame {
                 res = minDatabaskoppling.fetchSingle(query);
             } catch (InfException undantag) {
                 System.out.println("Fel: " + undantag.getMessage());
-
             }
             if (res != null) {
                 userID = Integer.parseInt(res);
@@ -954,6 +954,11 @@ public class Main_Page extends javax.swing.JFrame {
         rubrik_Lbl_1.setBackground(uiColorsBase);
         post_Text_Area_1.setBackground(uiColorsBase);
         post_text_Scroll_1.setBackground(uiColorsBase);
+        
+        ImageIcon image = new ImageIcon();
+        image.setDescription("resources/Oru_logo_rgb.png");
+        formBlg_Lbl.setIcon(image);
+        
 
         System.out.println("Init of Main Page Complete");
     }
