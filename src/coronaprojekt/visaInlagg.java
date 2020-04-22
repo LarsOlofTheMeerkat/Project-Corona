@@ -45,7 +45,7 @@ public class visaInlagg {
     }
 
     public void setLables() {
-
+       
     }
 
     public int getUserID() {

@@ -70,9 +70,9 @@ public class BloggInlagg {
         //lblConfirmAddedPost.setText("Ditt inlägg har lagts upp!");
     }
 
-    /*public void addFile(javax.swing.JLabel lblChoosenFile) {
+    public void addFile(javax.swing.JLabel lblChoosenFile, javax.swing.JFrame window) {
         JFileChooser fc = new JFileChooser();
-        int returnValue = fc.showOpenDialog(this);
+        int returnValue = fc.showOpenDialog(window);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             try {
                 File f = fc.getSelectedFile();
@@ -86,7 +86,7 @@ public class BloggInlagg {
         } else {
             lblChoosenFile.setText("No file choosen!");
         }
-    }*/
+    }
     private String getCurrentDateTime() {
         LocalDate localDate = LocalDate.now();
         return DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate);

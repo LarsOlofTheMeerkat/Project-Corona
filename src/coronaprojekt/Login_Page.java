@@ -6,6 +6,7 @@
 package coronaprojekt;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
@@ -55,10 +56,20 @@ public class Login_Page extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         anv_Txt_Fld.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        anv_Txt_Fld.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                anv_Txt_FldKeyPressed(evt);
+            }
+        });
         getContentPane().add(anv_Txt_Fld);
         anv_Txt_Fld.setBounds(160, 80, 160, 40);
 
         anv_Pass_Fld.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        anv_Pass_Fld.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                anv_Pass_FldKeyPressed(evt);
+            }
+        });
         getContentPane().add(anv_Pass_Fld);
         anv_Pass_Fld.setBounds(160, 140, 160, 40);
 
@@ -123,40 +134,20 @@ public class Login_Page extends javax.swing.JFrame {
     }//GEN-LAST:event_login_btnMouseReleased
 
     private void login_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_btnMouseClicked
-        try {
-            String anvandarnamn = anv_Txt_Fld.getText();
-            String losenord = anv_Pass_Fld.getText();
-            String hittaAnvandarnamn = "select Anvandarnamn from Anvandare where Anvandarnamn ='" + anvandarnamn + "';";
-            String resultat = minDatabaskoppling.fetchSingle(hittaAnvandarnamn);
-            if (resultat != null) {
-                String sql1 = "select Losenord from Anvandare where Anvandarnamn ='" + anvandarnamn + "';";
-                String result1 = minDatabaskoppling.fetchSingle(sql1);
-                String sql2 = "select IsAdmin from Anvandare where Anvandarnamn ='" + anvandarnamn + "'";
-                String inloggadAdmin = minDatabaskoppling.fetchSingle(sql2);
-                setCurrentUserName(anvandarnamn);
-                if (result1.equals(losenord) && inloggadAdmin.equals("J")) {
-
-                    this.setVisible(false);
-                    new Main_Page(minDatabaskoppling).setVisible(true);
-
-                    admin = true;
-                } else if (result1.equals(losenord)) {
-                    admin = false;
-                    this.setVisible(false);
-                    new Main_Page(minDatabaskoppling).setVisible(true);
-
-                } else {
-                    System.out.println("Ogiltigt lösenord");
-                    JOptionPane.showMessageDialog(null, "Ogiltigt lösenord");
-                }
-            } else {
-                System.out.println("Ogiltigt användarnamn");
-                JOptionPane.showMessageDialog(null, "Ogiltigt användarnamn");
-            }
-        } catch (InfException undantag) {
-            System.out.println("Fel: " + undantag.getMessage());
-        }
+        loginCode();
     }//GEN-LAST:event_login_btnMouseClicked
+
+    private void anv_Pass_FldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_anv_Pass_FldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            loginCode();
+        }
+    }//GEN-LAST:event_anv_Pass_FldKeyPressed
+
+    private void anv_Txt_FldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_anv_Txt_FldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            loginCode();
+        }
+    }//GEN-LAST:event_anv_Txt_FldKeyPressed
 
     public String getCurrentUserName() {
         return this.currentUserName;
@@ -222,10 +213,48 @@ public class Login_Page extends javax.swing.JFrame {
         anv_Pass_Fld.setBackground(baseColorSolidBtn);
 
         login_btn.setBackground(baseColorBtn);
-        
-        background_Image.setIcon(new ImageIcon(getClass().getResource("/coronaprojekt/resources/Oru_logo_rgb.png")));
-        
 
+        //background_Image.setIcon(new ImageIcon(getClass().getResource("/coronaprojekt/resources/Oru_logo_rgb.png")));
         System.out.println("Init of Login Screen Complete");
+    }
+
+    public void loginCode() {
+        login_btn.setVisible(false);
+        login_btn.setVisible(true);
+        try {
+            String anvandarnamn = anv_Txt_Fld.getText();
+            String losenord = anv_Pass_Fld.getText();
+            String hittaAnvandarnamn = "select Anvandarnamn from Anvandare where Anvandarnamn ='" + anvandarnamn + "';";
+            String resultat = minDatabaskoppling.fetchSingle(hittaAnvandarnamn);
+            if (resultat != null) {
+                String sql1 = "select Losenord from Anvandare where Anvandarnamn ='" + anvandarnamn + "';";
+                String result1 = minDatabaskoppling.fetchSingle(sql1);
+                String sql2 = "select IsAdmin from Anvandare where Anvandarnamn ='" + anvandarnamn + "'";
+                String inloggadAdmin = minDatabaskoppling.fetchSingle(sql2);
+                setCurrentUserName(anvandarnamn);
+                if (result1.equals(losenord) && inloggadAdmin.equals("J")) {
+
+                    this.setVisible(false);
+                    new Main_Page(minDatabaskoppling).setVisible(true);
+
+                    admin = true;
+                } else if (result1.equals(losenord)) {
+                    admin = false;
+                    this.setVisible(false);
+                    new Main_Page(minDatabaskoppling).setVisible(true);
+
+                } else {
+                    System.out.println("Ogiltigt lösenord");
+                    JOptionPane.showMessageDialog(null, "Ogiltigt lösenord");
+                }
+            } else {
+                System.out.println("Ogiltigt användarnamn");
+                JOptionPane.showMessageDialog(null, "Ogiltigt användarnamn");
+            }
+        } catch (InfException undantag) {
+            System.out.println("Fel: " + undantag.getMessage());
+        }
+        login_btn.setVisible(false);
+        login_btn.setVisible(true);
     }
 }
