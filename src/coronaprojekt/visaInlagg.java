@@ -29,6 +29,7 @@ public class visaInlagg {
     public void loadPosts() {
         Blogg inlagg = new Blogg(minDatabaskoppling, 20);
         inlagg.hamtaFormellaBloggInlagg();
+        inlagg.hamtaInformellaBloggInlagg();
     }
 
     public void setPane() {
