@@ -7,6 +7,7 @@ package coronaprojekt;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import oru.inf.InfDB;
@@ -15,6 +16,12 @@ import javax.swing.table.DefaultTableModel;
 import java.lang.IllegalArgumentException;
 import oru.inf.InfException;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+
+import javax.swing.*; 
+import java.awt.event.*;
 /**
  *
  * @author Simon Sandberg
@@ -30,6 +37,8 @@ public class Main_Page extends javax.swing.JFrame {
                 this.minDatabaskoppling = minDatabaskoppling; 
 
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,18 +56,11 @@ public class Main_Page extends javax.swing.JFrame {
         projects_btn = new javax.swing.JPanel();
         projBtn_Lbl = new javax.swing.JLabel();
         newsflow_Panel = new javax.swing.JPanel();
-        blogg_Window_Formel = new javax.swing.JScrollPane();
-        formel_Blogg_Panel = new javax.swing.JPanel();
-        blogg_Window_Informell = new javax.swing.JScrollPane();
-        informell_Blogg_Panel = new javax.swing.JPanel();
-        blogg_Window_Projekt = new javax.swing.JScrollPane();
-        projekt_Blogg_Panel = new javax.swing.JPanel();
         notis_btn = new javax.swing.JPanel();
         notis_lbl = new javax.swing.JLabel();
         account_btn = new javax.swing.JPanel();
         account_lbl = new javax.swing.JLabel();
-        konto_Panel = new javax.swing.JPanel();
-        background_Image_lbl = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main_Window_Pane");
@@ -97,6 +99,11 @@ public class Main_Page extends javax.swing.JFrame {
         formBlg_Lbl.setText("Formel Blogg");
         formBlg_Lbl.setMaximumSize(new java.awt.Dimension(300, 25));
         formBlg_Lbl.setPreferredSize(new java.awt.Dimension(300, 25));
+        formBlg_Lbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formBlg_LblMouseClicked(evt);
+            }
+        });
         formel_Blogg_btn.add(formBlg_Lbl, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(formel_Blogg_btn);
@@ -127,6 +134,11 @@ public class Main_Page extends javax.swing.JFrame {
         informBlg_Lbl.setForeground(new java.awt.Color(255, 255, 255));
         informBlg_Lbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         informBlg_Lbl.setText("Informell Blogg");
+        informBlg_Lbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                informBlg_LblMouseClicked(evt);
+            }
+        });
         informell_Blogg_btn.add(informBlg_Lbl, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(informell_Blogg_btn);
@@ -157,6 +169,11 @@ public class Main_Page extends javax.swing.JFrame {
         projBtn_Lbl.setForeground(new java.awt.Color(255, 255, 255));
         projBtn_Lbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         projBtn_Lbl.setText("Projekt");
+        projBtn_Lbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                projBtn_LblMouseClicked(evt);
+            }
+        });
         projects_btn.add(projBtn_Lbl, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(projects_btn);
@@ -177,84 +194,6 @@ public class Main_Page extends javax.swing.JFrame {
 
         getContentPane().add(newsflow_Panel);
         newsflow_Panel.setBounds(1470, 110, 445, 980);
-
-        blogg_Window_Formel.setBackground(new java.awt.Color(3, 194, 252));
-        blogg_Window_Formel.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        blogg_Window_Formel.setMinimumSize(new java.awt.Dimension(950, 980));
-        blogg_Window_Formel.setName(""); // NOI18N
-        blogg_Window_Formel.setPreferredSize(new java.awt.Dimension(950, 980));
-        blogg_Window_Formel.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                blogg_Window_FormelMouseWheelMoved(evt);
-            }
-        });
-
-        javax.swing.GroupLayout formel_Blogg_PanelLayout = new javax.swing.GroupLayout(formel_Blogg_Panel);
-        formel_Blogg_Panel.setLayout(formel_Blogg_PanelLayout);
-        formel_Blogg_PanelLayout.setHorizontalGroup(
-            formel_Blogg_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1521, Short.MAX_VALUE)
-        );
-        formel_Blogg_PanelLayout.setVerticalGroup(
-            formel_Blogg_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1117, Short.MAX_VALUE)
-        );
-
-        blogg_Window_Formel.setViewportView(formel_Blogg_Panel);
-
-        getContentPane().add(blogg_Window_Formel);
-        blogg_Window_Formel.setBounds(6, 112, 1452, 1120);
-
-        blogg_Window_Informell.setBackground(new java.awt.Color(3, 194, 252));
-        blogg_Window_Informell.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        blogg_Window_Informell.setMinimumSize(new java.awt.Dimension(950, 980));
-        blogg_Window_Informell.setName(""); // NOI18N
-        blogg_Window_Informell.setPreferredSize(new java.awt.Dimension(950, 980));
-        blogg_Window_Informell.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                blogg_Window_InformellMouseWheelMoved(evt);
-            }
-        });
-
-        javax.swing.GroupLayout informell_Blogg_PanelLayout = new javax.swing.GroupLayout(informell_Blogg_Panel);
-        informell_Blogg_Panel.setLayout(informell_Blogg_PanelLayout);
-        informell_Blogg_PanelLayout.setHorizontalGroup(
-            informell_Blogg_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1525, Short.MAX_VALUE)
-        );
-        informell_Blogg_PanelLayout.setVerticalGroup(
-            informell_Blogg_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1117, Short.MAX_VALUE)
-        );
-
-        blogg_Window_Informell.setViewportView(informell_Blogg_Panel);
-
-        getContentPane().add(blogg_Window_Informell);
-        blogg_Window_Informell.setBounds(6, 112, 1452, 980);
-
-        blogg_Window_Projekt.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                blogg_Window_ProjektMouseWheelMoved(evt);
-            }
-        });
-
-        projekt_Blogg_Panel.setPreferredSize(new java.awt.Dimension(1452, 1120));
-
-        javax.swing.GroupLayout projekt_Blogg_PanelLayout = new javax.swing.GroupLayout(projekt_Blogg_Panel);
-        projekt_Blogg_Panel.setLayout(projekt_Blogg_PanelLayout);
-        projekt_Blogg_PanelLayout.setHorizontalGroup(
-            projekt_Blogg_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1452, Short.MAX_VALUE)
-        );
-        projekt_Blogg_PanelLayout.setVerticalGroup(
-            projekt_Blogg_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1120, Short.MAX_VALUE)
-        );
-
-        blogg_Window_Projekt.setViewportView(projekt_Blogg_Panel);
-
-        getContentPane().add(blogg_Window_Projekt);
-        blogg_Window_Projekt.setBounds(6, 112, 1452, 1120);
 
         notis_btn.setBackground(new java.awt.Color(3, 194, 252));
         notis_btn.setForeground(new java.awt.Color(255, 255, 255));
@@ -312,31 +251,9 @@ public class Main_Page extends javax.swing.JFrame {
         getContentPane().add(account_btn);
         account_btn.setBounds(1695, 5, 220, 100);
 
-        javax.swing.GroupLayout konto_PanelLayout = new javax.swing.GroupLayout(konto_Panel);
-        konto_Panel.setLayout(konto_PanelLayout);
-        konto_PanelLayout.setHorizontalGroup(
-            konto_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1452, Short.MAX_VALUE)
-        );
-        konto_PanelLayout.setVerticalGroup(
-            konto_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1120, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(konto_Panel);
-        konto_Panel.setBounds(6, 112, 1452, 1120);
-
-        background_Image_lbl.setBackground(new java.awt.Color(255, 102, 102));
-        background_Image_lbl.setForeground(new java.awt.Color(102, 255, 102));
-        background_Image_lbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/coronaprojekt/resources/UniversitetsmiljÃ¶er00162.jpg"))); // NOI18N
-        background_Image_lbl.setText("jLabel1");
-        background_Image_lbl.setAlignmentY(0.0F);
-        background_Image_lbl.setFocusable(false);
-        background_Image_lbl.setMaximumSize(new java.awt.Dimension(1920, 1080));
-        background_Image_lbl.setMinimumSize(new java.awt.Dimension(1920, 1080));
-        background_Image_lbl.setPreferredSize(new java.awt.Dimension(1920, 1080));
-        getContentPane().add(background_Image_lbl);
-        background_Image_lbl.setBounds(0, 0, 1950, 1090);
+        jPanel1.setLayout(new java.awt.GridLayout(0, 1));
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(10, 120, 1440, 790);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -461,88 +378,120 @@ public class Main_Page extends javax.swing.JFrame {
         account_btn.setVisible(false);
         account_btn.setVisible(true);
     }//GEN-LAST:event_account_btnMouseReleased
-
-    private void blogg_Window_FormelMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_blogg_Window_FormelMouseWheelMoved
-        formel_Blogg_Panel.setBackground(baseColorBtn);
-        formel_Blogg_Panel.setVisible(false);
-        formel_Blogg_Panel.setVisible(true);
-        
-        blogg_Window_Formel.setBackground(baseColorBtn);
-        blogg_Window_Formel.setVisible(false);
-        blogg_Window_Formel.setVisible(true);
-    }//GEN-LAST:event_blogg_Window_FormelMouseWheelMoved
     //En klick funktion, i dem här ska alla länkar till andra metoder och klasser ligga
     private void formel_Blogg_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formel_Blogg_btnMouseClicked
-        blogg_Window_Formel.setVisible(true);
-        formel_Blogg_Panel.setVisible(true);
-       
-        blogg_Window_Informell.setVisible(false);
-        informell_Blogg_Panel.setVisible(false);
         
-        konto_Panel.setVisible(false);
         
-        blogg_Window_Projekt.setVisible(false);
-        projekt_Blogg_Panel.setVisible(false);
     }//GEN-LAST:event_formel_Blogg_btnMouseClicked
     //klick Funktion
     private void informell_Blogg_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_informell_Blogg_btnMouseClicked
-        blogg_Window_Informell.setVisible(true);
-        informell_Blogg_Panel.setVisible(true);
         
-        blogg_Window_Formel.setVisible(false);
-        formel_Blogg_Panel.setVisible(false);
-        
-        konto_Panel.setVisible(false);
-        
-        blogg_Window_Projekt.setVisible(false);
-        projekt_Blogg_Panel.setVisible(false);
+       
     }//GEN-LAST:event_informell_Blogg_btnMouseClicked
 
-    private void blogg_Window_InformellMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_blogg_Window_InformellMouseWheelMoved
-        informell_Blogg_Panel.setBackground(baseColorBtn);
-        informell_Blogg_Panel.setVisible(false);
-        informell_Blogg_Panel.setVisible(true);
-        
-        blogg_Window_Informell.setBackground(baseColorBtn);
-        blogg_Window_Informell.setVisible(false);
-        blogg_Window_Informell.setVisible(true);
-    }//GEN-LAST:event_blogg_Window_InformellMouseWheelMoved
-
     private void account_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_account_btnMouseClicked
-        konto_Panel.setVisible(true);
         
-        blogg_Window_Formel.setVisible(false);
-        formel_Blogg_Panel.setVisible(false);
-       
-        blogg_Window_Informell.setVisible(false);
-        informell_Blogg_Panel.setVisible(false);
         
-        blogg_Window_Projekt.setVisible(false);
-        projekt_Blogg_Panel.setVisible(false);
     }//GEN-LAST:event_account_btnMouseClicked
 
     private void projects_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_projects_btnMouseClicked
-        blogg_Window_Projekt.setVisible(true);
-        projekt_Blogg_Panel.setVisible(true);
-        
-        blogg_Window_Formel.setVisible(false);
-        formel_Blogg_Panel.setVisible(false);
        
-        blogg_Window_Informell.setVisible(false);
-        informell_Blogg_Panel.setVisible(false);
-        
-        konto_Panel.setVisible(false);
     }//GEN-LAST:event_projects_btnMouseClicked
 
-    private void blogg_Window_ProjektMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_blogg_Window_ProjektMouseWheelMoved
-        projekt_Blogg_Panel.setBackground(baseColorBtn);
-        projekt_Blogg_Panel.setVisible(false);
-        projekt_Blogg_Panel.setVisible(true);
+    private void formBlg_LblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formBlg_LblMouseClicked
+         System.out.println("Formella");
+         
+         Blogg inlagg = new Blogg(this.minDatabaskoppling, 5);
+        ArrayList<HashMap<String, String>> inlaggen = inlagg.hamtaFormellaBloggInlagg();
+        ArrayList<HashMap<String, String>> formellaBloggInlaggMedAnvandare = inlagg.hamtaBloggInlaggMedAnvandare(inlaggen);
         
-        blogg_Window_Projekt.setBackground(baseColorBtn);
-        blogg_Window_Projekt.setVisible(false);
-        blogg_Window_Projekt.setVisible(true);
-    }//GEN-LAST:event_blogg_Window_ProjektMouseWheelMoved
+        jPanel1.removeAll();
+        
+        //jScrollPane1.getViewport().add(tabellen, null);
+        javax.swing.JLabel hej = new JLabel();
+        hej.setText("Här visas alla formella inlägg");
+        jPanel1.add(hej, null);
+        for(int i =0; i < formellaBloggInlaggMedAnvandare.size(); i++){
+            
+            // hämta kommentarer till blog
+            ArrayList kommentarer = new Kommentar(minDatabaskoppling)
+                    .hamtaKommentarerTillBlogg(Integer.parseInt(formellaBloggInlaggMedAnvandare.get(i).get("ID")));
+ 
+            hej = new JLabel();
+            javax.swing.JLabel hej2 = new JLabel();
+            ettInlagg ettInlagg1 = new ettInlagg( this.minDatabaskoppling, formellaBloggInlaggMedAnvandare.get(i), 1, kommentarer);
+            
+            //ettInlagg1.setPost();
+            hej.setText(ettInlagg1.getRubrik());
+            hej2.setText(ettInlagg1.getSkapad());
+            
+            JButton btn = ettInlagg1.getButton();
+            
+            jPanel1.add(hej, null);
+            jPanel1.add(hej2, null);
+            jPanel1.add(btn, null);
+            
+            
+        }
+        // uppdatera jframe
+        //frame.setVisible(true);
+        //GridLayout boxlayout = new GridLayout(0,1);
+        //jPanel1.setLayout(boxlayout);
+        /*JScrollPane panelPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);*/
+        //jPanel1.add(panel);
+        
+       SwingUtilities.updateComponentTreeUI(this);
+         
+    }//GEN-LAST:event_formBlg_LblMouseClicked
+
+    private void informBlg_LblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_informBlg_LblMouseClicked
+        
+        System.out.println("Informella");
+         
+         Blogg inlagg = new Blogg(this.minDatabaskoppling, 5);
+        ArrayList<HashMap<String, String>> inlaggen = inlagg.hamtaInformellaBloggInlagg();
+        ArrayList<HashMap<String, String>> informellaBloggInlaggMedAnvandare = inlagg.hamtaBloggInlaggMedAnvandare(inlaggen);
+        
+        jPanel1.removeAll();
+        
+        //jScrollPane1.getViewport().add(tabellen, null);
+        javax.swing.JLabel hej = new JLabel();
+        hej.setText("Här visas alla informella inlägg");
+        jPanel1.add(hej, null);
+        for(int i =0; i < informellaBloggInlaggMedAnvandare.size(); i++){
+            hej = new JLabel();
+            javax.swing.JLabel hej2 = new JLabel();
+            ettInlagg ettInlagg1 = new ettInlagg( this.minDatabaskoppling, informellaBloggInlaggMedAnvandare.get(i), 1);
+            //ettInlagg1.setPost();
+            hej.setText(ettInlagg1.getRubrik());
+            hej2.setText(ettInlagg1.getSkapad());
+            
+            JButton btn = ettInlagg1.getButton();
+            
+            jPanel1.add(hej, null);
+            jPanel1.add(hej2, null);
+            jPanel1.add(btn, null);
+            
+            
+        }
+        // uppdatera jframe
+        //frame.setVisible(true);
+        //GridLayout boxlayout = new GridLayout(0,1);
+        //jPanel1.setLayout(boxlayout);
+        /*JScrollPane panelPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);*/
+        //jPanel1.add(panel);
+        
+       SwingUtilities.updateComponentTreeUI(this);
+        
+    }//GEN-LAST:event_informBlg_LblMouseClicked
+
+    private void projBtn_LblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_projBtn_LblMouseClicked
+        
+        System.out.println("Projet");
+        
+    }//GEN-LAST:event_projBtn_LblMouseClicked
 
     /**
      * @param args the command line arguments
@@ -582,23 +531,16 @@ public class Main_Page extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel account_btn;
     private javax.swing.JLabel account_lbl;
-    private javax.swing.JLabel background_Image_lbl;
-    private javax.swing.JScrollPane blogg_Window_Formel;
-    private javax.swing.JScrollPane blogg_Window_Informell;
-    private javax.swing.JScrollPane blogg_Window_Projekt;
     private javax.swing.JLabel formBlg_Lbl;
-    private javax.swing.JPanel formel_Blogg_Panel;
     private javax.swing.JPanel formel_Blogg_btn;
     private javax.swing.JLabel informBlg_Lbl;
-    private javax.swing.JPanel informell_Blogg_Panel;
     private javax.swing.JPanel informell_Blogg_btn;
-    private javax.swing.JPanel konto_Panel;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel newsflow_Panel;
     private javax.swing.JPanel notis_btn;
     private javax.swing.JLabel notis_lbl;
     private javax.swing.JLabel projBtn_Lbl;
     private javax.swing.JPanel projects_btn;
-    private javax.swing.JPanel projekt_Blogg_Panel;
     // End of variables declaration//GEN-END:variables
 
     private Color hoverColorBtn = new Color(41, 205, 255, 200);
@@ -615,33 +557,19 @@ public class Main_Page extends javax.swing.JFrame {
         
         projects_btn.setBackground(baseColorBtn);
         
-        blogg_Window_Formel.setBackground(baseColorBtn);
-        blogg_Window_Formel.getViewport().setOpaque(false);
-        formel_Blogg_Panel.setBackground(baseColorBtn);
-        formel_Blogg_Panel.setOpaque(false);
+        
         
         newsflow_Panel.setBackground(baseColorBtn);
         
-        blogg_Window_Informell.setBackground(baseColorBtn);
-        blogg_Window_Informell.getViewport().setOpaque(false);
-        blogg_Window_Informell.setVisible(false);
-        informell_Blogg_Panel.setBackground(baseColorBtn);
-        informell_Blogg_Panel.setOpaque(false);
-        informell_Blogg_Panel.setVisible(false);
         
-        blogg_Window_Projekt.setBackground(baseColorBtn);
-        blogg_Window_Projekt.getViewport().setOpaque(false);
-        blogg_Window_Projekt.setVisible(false);
-        projekt_Blogg_Panel.setBackground(baseColorBtn);
-        projekt_Blogg_Panel.setOpaque(false);
-        projekt_Blogg_Panel.setVisible(false);
+        
+       
         
         notis_btn.setBackground(baseColorBtn);
         
         account_btn.setBackground(baseColorBtn);
         
-        konto_Panel.setBackground(baseColorBtn);
-        konto_Panel.setVisible(false);
+      
         
         System.out.println("Init of Main Page Complete");    
     };

@@ -26,6 +26,7 @@ public class FilGUI extends javax.swing.JFrame {
     private  JFileChooser saveFileChooser;
     private String url;
     private Fil fil;
+    private String extension;
     /**
      * Creates new form FilGUI
      */
@@ -49,6 +50,7 @@ public class FilGUI extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         label1 = new javax.swing.JLabel();
+        namnPaFil = new javax.swing.JTextField();
 
         jFileChooser2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,16 +91,23 @@ public class FilGUI extends javax.swing.JFrame {
             }
         });
 
+        namnPaFil.setText("Sätt namn");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addComponent(jButton1)
+                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(200, 200, 200)
+                        .addComponent(namnPaFil, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(85, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -106,7 +115,9 @@ public class FilGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jButton1)
-                .addGap(60, 60, 60)
+                .addGap(10, 10, 10)
+                .addComponent(namnPaFil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
@@ -135,6 +146,12 @@ public class FilGUI extends javax.swing.JFrame {
        jFileChooser2.setVisible(false);
        jFrame1.setVisible(false);
        label1.setText("Loaded file " + jFileChooser2.getSelectedFile().getAbsolutePath());
+       this.extension = "";
+
+        int i = jFileChooser2.getSelectedFile().getAbsolutePath().lastIndexOf('.');
+        if (i > 0) {
+            this.extension = jFileChooser2.getSelectedFile().getAbsolutePath().substring(i+1);
+        }
     }//GEN-LAST:event_jFileChooser2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -145,7 +162,8 @@ public class FilGUI extends javax.swing.JFrame {
         fil.sparaFilMedBloggID(filnamn, 1);*/
         
         
-        fil.sparaFil("test.docx");
+        String filnamn = fil.sparaFil(this.namnPaFil.getText() + "."+ this.extension);
+        fil.sparaFilMedBloggID(filnamn, 1);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     
@@ -162,5 +180,6 @@ public class FilGUI extends javax.swing.JFrame {
     private javax.swing.JFileChooser jFileChooser2;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel label1;
+    private javax.swing.JTextField namnPaFil;
     // End of variables declaration//GEN-END:variables
 }

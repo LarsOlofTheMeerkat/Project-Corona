@@ -9,6 +9,8 @@ import oru.inf.InfDB;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import oru.inf.InfException;
+import java.util.ArrayList;
+import java.util.HashMap;
 /**
  *
  * @author jacob
@@ -20,9 +22,45 @@ public class Kommentar {
     private int anvandareID;
     private int limit;
 
-    public Kommentar(InfDB idb, int anvadareID) {
+    public Kommentar(InfDB idb) {
         this.db = idb;
-        this.anvandareID = anvandareID;
+    }
+    
+    private ArrayList skapaEnArrayMedEndastEttVarde(ArrayList<HashMap<String, String>> listan, String indexNamn) {
+        ArrayList nyLista = new ArrayList();
+        for (int i = 0; i < listan.size(); i++) {
+            nyLista.add(listan.get(i).get(indexNamn));
+        }
+        return nyLista;
+    }
+    
+    private String fixaListaMedIds(ArrayList lista) {
+        String query = "(";
+        for (int i = 0; i < lista.size(); i++) {
+            query = query + lista.get(i);
+            if (i + 1 != lista.size()) {
+                query = query + ",";
+            }
+        }
+        query = query + ")";
+        return query;
+    }
+    
+    public ArrayList hamtaKommentarerTillBlogg(int bloggId){
+        ArrayList<HashMap<String, String>> resultat = new ArrayList<>();
+        try{
+            String res1 = "SELECT BLOGGID FROM KOMMENTARER_TILL_BLOGG WHERE BLOGGID = " + bloggId;
+            ArrayList<HashMap<String, String>> res = this.db.fetchRows(res1);
+            
+            ArrayList lista = this.skapaEnArrayMedEndastEttVarde(res, "BLOGGID");
+            
+            String fraga = "SELECT * FROM KOMMENTAR WHERE ID IN " + this.fixaListaMedIds(lista);
+            resultat = this.db.fetchRows(fraga);
+            
+        }catch(InfException e){
+            System.out.println(e);
+        }
+        return resultat;
     }
     
     public boolean skrivaEnKommentarTillBlogg(int BloggID, String text){

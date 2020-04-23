@@ -167,7 +167,7 @@ public class Fil {
             String OperatingSystem = System.getProperty("os.name").toLowerCase();
             System.out.println(OperatingSystem);
             String directory = "";
-            directory = folder + "\\filer\\" + sokvag;
+            directory = folder + "\\anvandarFiler\\" + sokvag;
             
             File infile =new File(directory);
             
@@ -179,16 +179,17 @@ public class Fil {
         }
     }
     
-    public void sparaFil(String filnamn){
+    public String sparaFil(String filnamn){
         FileOutputStream outstream = null;
+        String filNamn = "";
         try{
             String folder = System.getProperty("user.dir");
             String OperatingSystem = System.getProperty("os.name").toLowerCase();
             System.out.println(OperatingSystem);
             String directory = "";
             double randomNumber = (Math.random() * ((1000 - 1) + 1)) + 1;
-            String filNamn = filnamn  + Math.floor(randomNumber);
-            directory = folder + "\\filer\\" + filNamn;
+            filNamn = + Math.floor(randomNumber)+ filnamn ;
+            directory = folder + "\\anvandarFiler\\" + filNamn;
             
             File outfile =new File(directory);
  
@@ -215,7 +216,7 @@ public class Fil {
             exep.printStackTrace();
         }
         
-     
+     return filNamn;
         
     }
     
@@ -274,7 +275,7 @@ public class Fil {
             String directory = "";
             double randomNumber = (Math.random() * ((1000 - 1) + 1)) + 1;
             String filNamn = filnamn  + Math.floor(randomNumber) + ".png";
-            directory = folder + "\\filer\\" + filNamn;
+            directory = folder + "\\anvandarFiler\\" + filNamn;
 
          try {
             ImageIO.write(originalBI, "png", new File(directory));
@@ -284,8 +285,16 @@ public class Fil {
         return filNamn;
     }
     
+    public String getSokVag(){
+        String folder = System.getProperty("user.dir");
+        String OperatingSystem = System.getProperty("os.name").toLowerCase();
+        System.out.println(OperatingSystem);
+       String directory = folder + "\\anvandarFiler\\";
+       return directory;
+    }
+    
     public boolean sparaFilMedBloggID(String filnamn, int BloggID){
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         boolean resultat = false;
         try{
             
@@ -293,14 +302,19 @@ public class Fil {
             String res = this.db.fetchSingle(fraga);
             
             if(res != null){
-                
-            int nyFilId = Integer.parseInt(db.getAutoIncrement("FIL", "ID"));
-            fraga = "INSERT INTO FIL(ID, SOKVAG, SKAPAD) VALUES("+nyFilId+","+
-                    filnamn + "," + date + ")";
+                int nyFilId = 1;
+              try{
+                  nyFilId = Integer.parseInt(db.getAutoIncrement("FIL", "ID"));
+              }catch(java.lang.NumberFormatException e){
+                  nyFilId = 1;
+              }
+            
+            fraga = "INSERT INTO FIL(ID, SOKVAG, SKAPAD) VALUES("+nyFilId+",'"+
+                    filnamn + "','" + date + "')";
             
             this.db.insert(fraga);
 
-            fraga = "Insert into FILTER_TILL_BLOGG(FILID, BLOGGID) VALUES(" +nyFilId+ ","
+            fraga = "Insert into FILER_TILL_BLOGG(FILID, BLOGGID) VALUES(" +nyFilId+ ","
                 + BloggID + ")"; 
         
             this.db.insert(fraga);

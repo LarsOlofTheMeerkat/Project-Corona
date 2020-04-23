@@ -29,7 +29,7 @@ import java.io.IOException;
  *
  * @author Simon Sandberg
  */
-public class ettInlagg  implements ActionListener{
+public class enKommentar  implements ActionListener{
 
     public static InfDB minDatabaskoppling;
     Login_Page user = new Login_Page(minDatabaskoppling);
@@ -52,56 +52,62 @@ public class ettInlagg  implements ActionListener{
     private javax.swing.JLabel imageLbl;
     private javax.swing.JLabel datumLabel;
     private javax.swing.JButton knapp;
-    
     private ArrayList<HashMap<String, String>> kommentarer;
     
+    private String onlyDisplay = "";
     
     
-    
-    public ettInlagg(InfDB db, HashMap<String, String> ettInlaggFranDatabasen, int artikelEllerBlogg, ArrayList<HashMap<String, String>> kommentarer){
-        this.artikelEllerBlogg = artikelEllerBlogg;
-        this.ID = Integer.parseInt(ettInlaggFranDatabasen.get("ID"));
-        Fil filer = new Fil(db);
-        ArrayList listaMedFilIds = new ArrayList<>();
-        
-        this.userName = ettInlaggFranDatabasen.get("NAMN");
+    public enKommentar(ArrayList<HashMap<String, String>> kommentarer){
         this.kommentarer = kommentarer;
-        
-        if(artikelEllerBlogg == 1){
-            // blogg inlägg
-            this.text = ettInlaggFranDatabasen.get("TEXT");
-            this.anvandareID = ettInlaggFranDatabasen.get("ANVANDAREID");
-            this.informell = ettInlaggFranDatabasen.get("INFORMELL");
-            this.skapad = ettInlaggFranDatabasen.get("SKAPAD");
-            this.rubrik = ettInlaggFranDatabasen.get("RUBRIK");
-            System.out.println(this.ID);
-            listaMedFilIds = filer.hamtaFilIDsMedBloggID(this.ID);
-            
-        }else if(artikelEllerBlogg == 0){
-            // ARTIKEL inlägg
-            this.rubrik = ettInlaggFranDatabasen.get("RUBRIK");
-            this.text = ettInlaggFranDatabasen.get("TEXT");
-            this.anvandareID = ettInlaggFranDatabasen.get("ANVANDAREID");
-            this.skapad = ettInlaggFranDatabasen.get("SKAPAD");
-            listaMedFilIds = filer.hamtaFilIDsMedArtikelID(this.ID);
-        }
-        
-        this.filer = filer.hamtaFilerMedFilIDs(listaMedFilIds);
-        this.postPanel = new JPanel();
-        this.txtArea = new JTextArea(5,2);
-        this.txtArea.setEditable(false);
-this.txtArea.setLineWrap(true);
-this.txtArea.setWrapStyleWord(true);
-        this.rubrikLbl = new JLabel();
-        this.nameLbl = new JLabel();
-        this.imageLbl = new JLabel();
-        this.datumLabel = new JLabel();
-        
-        this.knapp = new JButton("Se artikel");
-        this.knapp.addActionListener(this);
+    }
+    
+     public enKommentar(String text){
+        this.onlyDisplay = text;
     }
     
     public void actionPerformed(ActionEvent e){
+        if(this.onlyDisplay == "skrivkommentar"){
+            
+        JFrame nyJFRAME = new JFrame();
+        
+        nyJFRAME.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        nyJFRAME.setVisible(true);
+        
+        JPanel jPanel1 = new JPanel();
+        GridLayout boxlayout = new GridLayout(0,1);
+        jPanel1.setLayout(boxlayout);
+        nyJFRAME.setLayout(boxlayout);
+        
+        this.txtArea = new JTextArea(5,2);
+        jPanel1.add(this.txtArea, null);
+        
+        JButton enknapp = new JButton("Kommentera");
+        enknapp.addActionListener(new enKommentar("kommentera"));
+        jPanel1.add(enknapp, null);
+        
+        nyJFRAME.add(jPanel1);
+        SwingUtilities.updateComponentTreeUI(nyJFRAME);
+            
+        }else if(this.onlyDisplay == "kommentera"){
+            JFrame nyJFRAME = new JFrame();
+        
+        nyJFRAME.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        nyJFRAME.setVisible(true);
+        
+        JPanel jPanel1 = new JPanel();
+        GridLayout boxlayout = new GridLayout(0,1);
+        jPanel1.setLayout(boxlayout);
+        nyJFRAME.setLayout(boxlayout);
+        
+        JLabel text = new JLabel();
+        text.setText("Tack för att du kommenterade!");
+        
+        jPanel1.add(text, null);
+        
+        nyJFRAME.add(jPanel1);
+        SwingUtilities.updateComponentTreeUI(nyJFRAME);
+        
+        }else{
         
         JFrame nyJFRAME = new JFrame();
         
@@ -113,34 +119,17 @@ this.txtArea.setWrapStyleWord(true);
         jPanel1.setLayout(boxlayout);
         nyJFRAME.setLayout(boxlayout);
         
-        this.setPost();
         
-        jPanel1.add(this.getRubrik(1), null);
-        jPanel1.add(this.getForfattare(), null);
-        jPanel1.add(this.getSkapad(1), null);
-        jPanel1.add(this.getText(), null);
-        
-        JButton enknapp = new JButton("Se kommentarer");
-        enknapp.addActionListener(new enKommentar(this.kommentarer));
-        jPanel1.add(enknapp, null);
-        
-        JButton enknapp1 = new JButton("Skriv en kommentar");
-        enknapp1.addActionListener(new enKommentar("skrivkommentar"));
-        jPanel1.add(enknapp1, null);
-        
-        // images
-        for(int i = 0; i < this.filer.size(); i++){
-            System.out.println("JA");
-            if(this.filer.get(i) != null && this.filer.get(i).get("SOKVAG") != null){
-                System.out.println("JA2");
-                System.out.println(this.filer.get(i).get("SOKVAG"));
-                JLabel nyLabel = this.setPicture(this.filer.get(i).get("SOKVAG"));
-                jPanel1.add(nyLabel, null);
-            }
+        for(int i = 0; i < this.kommentarer.size(); i++){
+            JLabel kommentar = new JLabel();
+            kommentar.setText(this.kommentarer.get(i).get("TEXT"));
+            jPanel1.add(kommentar);
         }
+        
         
         nyJFRAME.add(jPanel1);
         SwingUtilities.updateComponentTreeUI(nyJFRAME);
+        }
     }
     
     /*
