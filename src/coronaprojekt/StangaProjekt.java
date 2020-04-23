@@ -202,7 +202,6 @@ public class StangaProjekt extends javax.swing.JFrame {
        
         txtAreaProjekt.setText("");
         String gruppId = txtAndraStatus.getText();
-         anvandareID = 5;
         
         
         String query3 = ("select * from PROJEKT where ANVANDAREID = " + anvandareID + " AND FORSKNINGSPROJEKTID = " + gruppId);
@@ -255,7 +254,8 @@ public class StangaProjekt extends javax.swing.JFrame {
     private void btnAndraTillPrivatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraTillPrivatActionPerformed
             txtAreaProjekt.setText("");
         String gruppId = txtAndraStatus.getText();
-         anvandareID = 5;
+
+ 
         
         
         String query3 = ("select * from PROJEKT where ANVANDAREID = " + anvandareID + " AND FORSKNINGSPROJEKTID = " + gruppId);
