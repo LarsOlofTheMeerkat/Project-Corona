@@ -26,13 +26,13 @@ import java.awt.event.*;
  *
  * @author Simon Sandberg
  */
-public class Main_Page extends javax.swing.JFrame {
+public class Main_page_jacob extends javax.swing.JFrame {
     public static InfDB minDatabaskoppling;
     public static int anvandareID;
     /**
      * Creates new form Main_Page
      */
-    public Main_Page(InfDB minDatabaskoppling, int anvandareID) {
+    public Main_page_jacob(InfDB minDatabaskoppling, int anvandareID) {
         initComponents();
         initMainWindow();
                 this.minDatabaskoppling = minDatabaskoppling; 

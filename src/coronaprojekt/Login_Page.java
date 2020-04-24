@@ -15,15 +15,18 @@ import oru.inf.InfException;
  * @author Simon Sandberg
  */
 public class Login_Page extends javax.swing.JFrame {
-public static InfDB minDatabaskoppling;
+
+    public static InfDB minDatabaskoppling;
+    private static String currentUserName;
     private boolean admin;
+
     /**
      * Creates new form Login_Page
      */
     public Login_Page(InfDB minDatabaskoppling) {
         initComponents();
         initLoginScreen();
-                        this.minDatabaskoppling = minDatabaskoppling; 
+        this.minDatabaskoppling = minDatabaskoppling;
 
     }
 
@@ -119,44 +122,65 @@ public static InfDB minDatabaskoppling;
     }//GEN-LAST:event_login_btnMouseReleased
 
     private void login_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_btnMouseClicked
-              try{
+        try {
             String anvandarnamn = anv_Txt_Fld.getText();
             String losenord = anv_Pass_Fld.getText();
             String hittaAnvandarnamn = "select Anvandarnamn from Anvandare where Anvandarnamn ='" + anvandarnamn + "';";
             String resultat = minDatabaskoppling.fetchSingle(hittaAnvandarnamn);
-            if(resultat != null) {
+            setCurrentUserName(anvandarnamn);
+            if (resultat != null) {
                 String sql1 = "select Losenord from Anvandare where Anvandarnamn ='" + anvandarnamn + "';";
                 String result1 = minDatabaskoppling.fetchSingle(sql1);
                 String sql2 = "select IsAdmin from Anvandare where Anvandarnamn ='" + anvandarnamn + "'";
                 String inloggadAdmin = minDatabaskoppling.fetchSingle(sql2);
-                if(result1.equals(losenord) && inloggadAdmin.equals("J")) {
+                if (result1.equals(losenord) && inloggadAdmin.equals("J")) {
 
                     this.setVisible(false);
-                          new Main_Page(minDatabaskoppling).setVisible(true);
+                    new Main_Page(minDatabaskoppling, getUserID()).setVisible(true);
 
-                    
                     admin = true;
-                }
-                else if(result1.equals(losenord)){
+                } else if (result1.equals(losenord)) {
                     admin = false;
                     this.setVisible(false);
-                    new Main_Page(minDatabaskoppling).setVisible(true);    
-                    
-                }  
-                else{
+                    new Main_Page(minDatabaskoppling, getUserID()).setVisible(true);
+
+                } else {
                     System.out.println("Ogiltigt lösenord");
                     JOptionPane.showMessageDialog(null, "Ogiltigt lösenord");
                 }
-            }
-            else{
+            } else {
                 System.out.println("Ogiltigt användarnamn");
                 JOptionPane.showMessageDialog(null, "Ogiltigt användarnamn");
             }
-        }
-        catch(InfException undantag){
+        } catch (InfException undantag) {
             System.out.println("Fel: " + undantag.getMessage());
-        } 
+        }
     }//GEN-LAST:event_login_btnMouseClicked
+
+    public String getCurrentUserName() {
+        return this.currentUserName;
+    }
+
+    public void setCurrentUserName(String userName) {
+        this.currentUserName = userName;
+    }
+
+    public int getUserID() {
+        int ID;
+        String query = "";
+        String res = "";
+
+        try {
+            query = "select ID from Anvandare where Anvandarnamn ='" + getCurrentUserName() + "';";
+            res = minDatabaskoppling.fetchSingle(query);
+        } catch (InfException undantag) {
+            System.out.println("Fel: " + undantag.getMessage());
+        }
+        
+        ID = Integer.parseInt(res);
+        
+        return ID;
+    }
 
     /**
      * @param args the command line arguments
@@ -192,7 +216,7 @@ public static InfDB minDatabaskoppling;
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField anv_Pass_Fld;
     private javax.swing.JTextField anv_Txt_Fld;
@@ -205,17 +229,16 @@ public static InfDB minDatabaskoppling;
     private Color baseColorBtn = new Color(3, 194, 252, 150);
     private Color clickedColorBtn = new Color(117, 223, 255, 200);
     private Color baseColorSolidBtn = new Color(0, 157, 204);
-    
-    public void initLoginScreen()
-    {
+
+    public void initLoginScreen() {
         setLocationRelativeTo(null);
-        
+
         anv_Txt_Fld.setBackground(baseColorSolidBtn);
-        
+
         anv_Pass_Fld.setBackground(baseColorSolidBtn);
-        
+
         login_btn.setBackground(baseColorBtn);
-        
+
         System.out.println("Init of Login Screen Complete");
     }
 }

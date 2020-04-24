@@ -108,7 +108,8 @@ public class hamta_blogg extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main_Page(minDatabaskoppling).setVisible(true);
+                Login_Page userID = new Login_Page(minDatabaskoppling);
+                new Main_Page(minDatabaskoppling, userID.getUserID()).setVisible(true);
             }
         });
     }
