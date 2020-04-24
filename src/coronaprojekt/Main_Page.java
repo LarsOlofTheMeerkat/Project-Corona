@@ -25,6 +25,8 @@ import javax.swing.SwingUtilities;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -210,6 +212,9 @@ public String kategori = "";
         notis_btn1.setBackground(new java.awt.Color(3, 194, 252));
         notis_btn1.setForeground(new java.awt.Color(255, 255, 255));
         notis_btn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                notis_btn1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 notis_btn1MouseEntered(evt);
             }
@@ -627,6 +632,53 @@ public String kategori = "";
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void notis_btn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notis_btn1MouseClicked
+        Login_Page user = new Login_Page(minDatabaskoppling);
+        Object[] options = {"Ja", "Nej"};
+        String res = "";
+        String query = "";
+        int reply = JOptionPane.showOptionDialog(
+            null,
+            "Vill du ha notiser?",
+            "An Inane Question",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[0]);
+        try {
+                query = "select ID from Anvandare where Anvandarnamn ='" + user.getCurrentUserName() + "';";
+                res = minDatabaskoppling.fetchSingle(query);
+            } catch (InfException undantag) {
+                System.out.println("Fel: " + undantag.getMessage());
+            }
+        int ID = Integer.parseInt(res); 
+        if(reply == JOptionPane.YES_OPTION){
+                        
+            String fraga = "update NOTIS set EMAIL = 'J' where AGARE = " + ID;
+            try {
+                minDatabaskoppling.update(fraga);
+                System.out.println("You're in");
+            } catch (InfException ex) {
+                Logger.getLogger(Main_Page.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("SUPERFEL");
+            }
+            
+            JOptionPane.showMessageDialog(null, "Du har aktiverat notiser.");
+        }
+        else {
+            String fraga = "update NOTIS set EMAIL = 'N' where AGARE = " +
+                    ID + ";";
+            
+            try {
+                minDatabaskoppling.update(fraga);
+            } catch (InfException ex) {
+                Logger.getLogger(Main_Page.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JOptionPane.showMessageDialog(null, "Du har stängt av notiser.");
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_notis_btn1MouseClicked
 
     /**
      * @param args the command line arguments
