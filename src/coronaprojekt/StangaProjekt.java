@@ -1,7 +1,12 @@
 package coronaprojekt;
 
+import static coronaprojekt.Login_Page.minDatabaskoppling;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -10,18 +15,18 @@ import oru.inf.InfException;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Padfo
  */
 public class StangaProjekt extends javax.swing.JFrame {
-    
-     private static InfDB minDatabaskoppling;
-     private int anvandareID;
+
+    private static InfDB minDatabaskoppling;
+    private int anvandareID;
 
     /**
      * Creates new form StangaProjekt
+     *
      * @param minDatabaskoppling
      */
     public StangaProjekt(InfDB minDatabaskoppling) {
@@ -32,8 +37,7 @@ public class StangaProjekt extends javax.swing.JFrame {
 
     private StangaProjekt() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }   
-
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,6 +54,8 @@ public class StangaProjekt extends javax.swing.JFrame {
         btnAndraTillPublikt = new javax.swing.JButton();
         txtAreaProjekt = new javax.swing.JTextArea();
         btnAndraTillPrivat = new javax.swing.JButton();
+        jbtnSkapaProjekt = new javax.swing.JButton();
+        btnBjudin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,46 +96,68 @@ public class StangaProjekt extends javax.swing.JFrame {
             }
         });
 
+        jbtnSkapaProjekt.setText("Skapa nytt projekt");
+        jbtnSkapaProjekt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSkapaProjektActionPerformed(evt);
+            }
+        });
+
+        btnBjudin.setText("Bjud in till grupp");
+        btnBjudin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBjudinActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(txtAreaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnHamtaProjekt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHamtaEgnaProjekt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(226, 226, 226))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addComponent(txtAndraStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(128, 128, 128)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAndraTillPrivat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAndraTillPublikt, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(txtAreaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(txtAndraStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(128, 128, 128)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAndraTillPrivat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAndraTillPublikt, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbtnSkapaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnHamtaProjekt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnHamtaEgnaProjekt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                        .addComponent(btnBjudin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(btnHamtaProjekt)
-                        .addGap(61, 61, 61)
-                        .addComponent(btnHamtaEgnaProjekt))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(txtAreaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtAndraStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAndraTillPublikt, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(31, 31, 31)
-                .addComponent(btnAndraTillPrivat)
-                .addContainerGap(147, Short.MAX_VALUE))
+                        .addComponent(txtAreaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAndraStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAndraTillPublikt, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAndraTillPrivat))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(btnHamtaProjekt)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnHamtaEgnaProjekt)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBjudin)
+                        .addGap(72, 72, 72)
+                        .addComponent(jbtnSkapaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();
@@ -139,25 +167,24 @@ public class StangaProjekt extends javax.swing.JFrame {
         txtAreaProjekt.setText("");
         String query = ("SELECT * FROM FORSKNINGSPROJEKT WHERE PUBLIK = 'J'");
         System.out.println(query);
-       
-        
-        try{
-           ArrayList<HashMap<String, String>> listaAvProjekt = minDatabaskoppling.fetchRows(query);
-           for (HashMap<String, String> ettProjekt : listaAvProjekt) {
-               
+
+        try {
+            ArrayList<HashMap<String, String>> listaAvProjekt = minDatabaskoppling.fetchRows(query);
+            for (HashMap<String, String> ettProjekt : listaAvProjekt) {
+
                 String id = ettProjekt.get("ID");
-                String namn= ettProjekt.get("NAMN");
-                
-                txtAreaProjekt.append("ID: " + id + "\nNamn: " + namn + "\n" + "\n");
-                
+                String namn = ettProjekt.get("NAMN");
+                String skapare = ettProjekt.get("Skapare");
+
+                txtAreaProjekt.append("ID: " + id + "\nNamn: " + namn + "\nSkapare :" + skapare + "\n" + "\n" + "\n");
+
                 System.out.println(listaAvProjekt);
-           }
+            }
         } catch (InfException e) {
             System.out.println("Intern felmeddelande: " + e.getMessage());
         }
-           
-        
-        
+
+
     }//GEN-LAST:event_btnHamtaProjektActionPerformed
 
     private void btnHamtaEgnaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHamtaEgnaProjektActionPerformed
@@ -196,120 +223,170 @@ public class StangaProjekt extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAndraStatusActionPerformed
 
-    
     //Metod för att ändra ett projekt till publikt, med krav om medlemskap i gruppen
     private void btnAndraTillPubliktActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraTillPubliktActionPerformed
-       
+
         txtAreaProjekt.setText("");
         String gruppId = txtAndraStatus.getText();
-        
-        
+
         String query3 = ("select * from PROJEKT where ANVANDAREID = " + anvandareID + " AND FORSKNINGSPROJEKTID = " + gruppId);
-        
-                try {
-                    ArrayList<HashMap<String, String>> listaAvProjekt = minDatabaskoppling.fetchRows(query3);
-            
-                    for (HashMap<String, String> ettProjekt : listaAvProjekt) {
-            
-                    String a_Id = ettProjekt.get("ANVANDAREID");
-                    String f_Id = ettProjekt.get("FORSKNINGSPROJEKTID");
-            
-                    System.out.println(ettProjekt);
-                    System.out.println(a_Id);
-                    System.out.println(f_Id);
-                    
-                    {
-                        String query4 = ("SELECT PUBLIK FROM FORSKNINGSPROJEKT WHERE ID = " + f_Id);
-                        try {
-                         ArrayList<HashMap<String, String>> listaAvForskProjekt = minDatabaskoppling.fetchRows(query4);
-                         
-                         for (HashMap<String, String> ettAnnatProjekt : listaAvForskProjekt) {
-                             
-                             String publik = ettAnnatProjekt.get("PUBLIK");
-                             
-                             System.out.println(ettAnnatProjekt);
-                             System.out.println(publik);
-                                {String query5 = ("update FORSKNINGSPROJEKT set PUBLIK = 'J' where ID = " + anvandareID);
-                                    minDatabaskoppling.update(query5);
+
+        try {
+            ArrayList<HashMap<String, String>> listaAvProjekt = minDatabaskoppling.fetchRows(query3);
+
+            for (HashMap<String, String> ettProjekt : listaAvProjekt) {
+
+                String a_Id = ettProjekt.get("ANVANDAREID");
+                String f_Id = ettProjekt.get("FORSKNINGSPROJEKTID");
+
+                System.out.println(ettProjekt);
+                System.out.println(a_Id);
+                System.out.println(f_Id);
+
+                {
+                    String query4 = ("SELECT PUBLIK FROM FORSKNINGSPROJEKT WHERE ID = " + f_Id);
+                    try {
+                        ArrayList<HashMap<String, String>> listaAvForskProjekt = minDatabaskoppling.fetchRows(query4);
+
+                        for (HashMap<String, String> ettAnnatProjekt : listaAvForskProjekt) {
+
+                            String publik = ettAnnatProjekt.get("PUBLIK");
+
+                            System.out.println(ettAnnatProjekt);
+                            System.out.println(publik);
+                            {
+                                String query5 = ("update FORSKNINGSPROJEKT set PUBLIK = 'J' where ID = " + anvandareID);
+                                minDatabaskoppling.update(query5);
                                 System.out.println("Projektet är publikt");
-                                txtAreaProjekt.setText("Projektet är publikt");}
-                                                           
-                         }
+                                txtAreaProjekt.setText("Projektet är publikt");
+                            }
+
+                        }
                     } catch (InfException ex) {
                         System.out.println(ex.getMessage());
                     } catch (NullPointerException ex) {
                         System.out.println("Internt felmeddelande: " + ex.getMessage());
-                    }}
-           
-                    }} catch (InfException ex) {
+                    }
+                }
+
+            }
+        } catch (InfException ex) {
             System.out.println(ex.getMessage());
         } catch (NullPointerException ex) {
             System.out.println("Internt felmeddelande: " + ex.getMessage());
         }
-                
+
     }//GEN-LAST:event_btnAndraTillPubliktActionPerformed
 
-    
     //Metod för att ändra ett projekt till privat, med krav om medlemskap i gruppen
     private void btnAndraTillPrivatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraTillPrivatActionPerformed
-            txtAreaProjekt.setText("");
+        txtAreaProjekt.setText("");
         String gruppId = txtAndraStatus.getText();
 
- 
-        
-        
         String query3 = ("select * from PROJEKT where ANVANDAREID = " + anvandareID + " AND FORSKNINGSPROJEKTID = " + gruppId);
-        
-                try {
-                    ArrayList<HashMap<String, String>> listaAvProjekt = minDatabaskoppling.fetchRows(query3);
-            
-                    for (HashMap<String, String> ettProjekt : listaAvProjekt) {
-            
-                    String a_Id = ettProjekt.get("ANVANDAREID");
-                    String f_Id = ettProjekt.get("FORSKNINGSPROJEKTID");
-            
-                    System.out.println(ettProjekt);
-                    System.out.println(a_Id);
-                    System.out.println(f_Id);
-                    
-                    {
-                        String query4 = ("SELECT PUBLIK FROM FORSKNINGSPROJEKT WHERE ID = " + f_Id);
-                        try {
-                         ArrayList<HashMap<String, String>> listaAvForskProjekt = minDatabaskoppling.fetchRows(query4);
-                         
-                         for (HashMap<String, String> ettAnnatProjekt : listaAvForskProjekt) {
-                             
-                             String publik = ettAnnatProjekt.get("PUBLIK");
-                             
-                             System.out.println(ettAnnatProjekt);
-                             System.out.println(publik);
-                                {String query5 = ("update FORSKNINGSPROJEKT set PUBLIK = 'N' where ID = " + anvandareID);
-                                    minDatabaskoppling.update(query5);
+
+        try {
+            ArrayList<HashMap<String, String>> listaAvProjekt = minDatabaskoppling.fetchRows(query3);
+
+            for (HashMap<String, String> ettProjekt : listaAvProjekt) {
+
+                String a_Id = ettProjekt.get("ANVANDAREID");
+                String f_Id = ettProjekt.get("FORSKNINGSPROJEKTID");
+
+                System.out.println(ettProjekt);
+                System.out.println(a_Id);
+                System.out.println(f_Id);
+
+                {
+                    String query4 = ("SELECT PUBLIK FROM FORSKNINGSPROJEKT WHERE ID = " + f_Id);
+                    try {
+                        ArrayList<HashMap<String, String>> listaAvForskProjekt = minDatabaskoppling.fetchRows(query4);
+
+                        for (HashMap<String, String> ettAnnatProjekt : listaAvForskProjekt) {
+
+                            String publik = ettAnnatProjekt.get("PUBLIK");
+
+                            System.out.println(ettAnnatProjekt);
+                            System.out.println(publik);
+                            {
+                                String query5 = ("update FORSKNINGSPROJEKT set PUBLIK = 'N' where ID = " + anvandareID);
+                                minDatabaskoppling.update(query5);
                                 System.out.println("Projektet är publikt");
-                                txtAreaProjekt.setText("Projektet är privat");}
-                                                           
-                         }
+                                txtAreaProjekt.setText("Projektet är privat");
+                            }
+
+                        }
                     } catch (InfException ex) {
                         System.out.println(ex.getMessage());
                     } catch (NullPointerException ex) {
                         System.out.println("Internt felmeddelande: " + ex.getMessage());
-                    }}
-           
-                    }} catch (InfException ex) {
+                    }
+                }
+
+            }
+        } catch (InfException ex) {
             System.out.println(ex.getMessage());
         } catch (NullPointerException ex) {
             System.out.println("Internt felmeddelande: " + ex.getMessage());
         }
-          
+
     }//GEN-LAST:event_btnAndraTillPrivatActionPerformed
 
+    private void jbtnSkapaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSkapaProjektActionPerformed
+        // öppnar en sida så man kan skapa ett nytt projekt
+       
+        this.dispose();
+        new SkapaProjekt(minDatabaskoppling).setVisible(true);
+
+
+    }//GEN-LAST:event_jbtnSkapaProjektActionPerformed
+
+
+
+    private void btnBjudinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBjudinActionPerformed
+        this.dispose();
+        new BjudInGrupp(minDatabaskoppling).setVisible(true);        
+    }//GEN-LAST:event_btnBjudinActionPerformed
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Likes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Likes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Likes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Likes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new StangaProjekt(minDatabaskoppling).setVisible(true);
+            }
+        });
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAndraTillPrivat;
     private javax.swing.JButton btnAndraTillPublikt;
+    private javax.swing.JButton btnBjudin;
     private javax.swing.JButton btnHamtaEgnaProjekt;
     private javax.swing.JButton btnHamtaProjekt;
+    private javax.swing.JButton jbtnSkapaProjekt;
     private javax.swing.JTextField txtAndraStatus;
     private javax.swing.JTextArea txtAreaProjekt;
     // End of variables declaration//GEN-END:variables

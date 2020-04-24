@@ -23,51 +23,62 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-              <Component id="txtAreaProjekt" min="-2" pref="434" max="-2" attributes="0"/>
-              <EmptySpace pref="64" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btnHamtaProjekt" max="32767" attributes="0"/>
-                  <Component id="btnHamtaEgnaProjekt" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                      <Component id="txtAreaProjekt" min="-2" pref="434" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
+                      <Component id="txtAndraStatus" min="-2" pref="139" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnAndraTillPrivat" max="32767" attributes="0"/>
+                          <Component id="btnAndraTillPublikt" pref="124" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
-              <Component id="txtAndraStatus" min="-2" pref="139" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btnAndraTillPrivat" max="32767" attributes="0"/>
-                  <Component id="btnAndraTillPublikt" pref="124" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jbtnSkapaProjekt" min="-2" pref="193" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="btnHamtaProjekt" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnHamtaEgnaProjekt" alignment="0" pref="153" max="32767" attributes="0"/>
+                      <Component id="btnBjudin" alignment="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="40" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                      <Component id="btnHamtaProjekt" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                      <Component id="btnHamtaEgnaProjekt" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="txtAreaProjekt" min="-2" pref="247" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtAndraStatus" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAndraTillPublikt" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnAndraTillPrivat" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                      <Component id="btnHamtaProjekt" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnHamtaEgnaProjekt" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnBjudin" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                      <Component id="jbtnSkapaProjekt" min="-2" pref="172" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="txtAndraStatus" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnAndraTillPublikt" alignment="1" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-              <Component id="btnAndraTillPrivat" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="147" max="32767" attributes="0"/>
+              <EmptySpace pref="90" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -114,6 +125,22 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAndraTillPrivatActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtnSkapaProjekt">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Skapa nytt projekt"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnSkapaProjektActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnBjudin">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Bjud in till grupp"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBjudinActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
