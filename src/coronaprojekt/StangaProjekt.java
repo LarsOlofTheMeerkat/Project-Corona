@@ -29,10 +29,12 @@ public class StangaProjekt extends javax.swing.JFrame {
      *
      * @param minDatabaskoppling
      */
-    public StangaProjekt(InfDB minDatabaskoppling) {
+    public StangaProjekt(InfDB minDatabaskoppling, int anvandareID) {
         initComponents();
         this.setLocationRelativeTo(null);
         StangaProjekt.minDatabaskoppling = minDatabaskoppling;
+        this.anvandareID = anvandareID;
+        setDefaultCloseOperation(this.HIDE_ON_CLOSE);
     }
 
     private StangaProjekt() {
@@ -336,7 +338,7 @@ public class StangaProjekt extends javax.swing.JFrame {
         // öppnar en sida så man kan skapa ett nytt projekt
        
         this.dispose();
-        new SkapaProjekt(minDatabaskoppling).setVisible(true);
+        new SkapaProjekt(minDatabaskoppling, this.anvandareID).setVisible(true);
 
 
     }//GEN-LAST:event_jbtnSkapaProjektActionPerformed
@@ -347,37 +349,7 @@ public class StangaProjekt extends javax.swing.JFrame {
         this.dispose();
         new BjudInGrupp(minDatabaskoppling).setVisible(true);        
     }//GEN-LAST:event_btnBjudinActionPerformed
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Likes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Likes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Likes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Likes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new StangaProjekt(minDatabaskoppling).setVisible(true);
-            }
-        });
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

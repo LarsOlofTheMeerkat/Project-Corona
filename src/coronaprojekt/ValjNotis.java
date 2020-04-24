@@ -26,6 +26,7 @@ public class ValjNotis extends javax.swing.JFrame {
     public ValjNotis(InfDB minDatabaskoppling ) {
         initComponents();
         this.minDatabaskoppling = minDatabaskoppling; 
+        setDefaultCloseOperation(this.HIDE_ON_CLOSE);
     }
 
     /**

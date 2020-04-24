@@ -33,6 +33,7 @@ public class SvaraPaMote extends javax.swing.JFrame {
         this.anvandareID=anvandareID;
         this.moteTitel=moteTitel;
         laddaInfoTillGui();
+        setDefaultCloseOperation(this.HIDE_ON_CLOSE);
     }
     
     DefaultListModel foreslagnaTiderModel = new DefaultListModel();

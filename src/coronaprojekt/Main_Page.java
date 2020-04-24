@@ -27,6 +27,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.awt.Dimension;
 
 /**
  *
@@ -42,13 +43,15 @@ public String kategori = "";
      */
     public Main_Page(InfDB minDatabaskoppling, int anvandareID) {
         initComponents();
-        initMainWindow();
+        //initMainWindow();
         this.minDatabaskoppling = minDatabaskoppling;
         this.anvandareID = anvandareID;
     
     Blogg nyBloggKlass = new Blogg(minDatabaskoppling, 10);
     jComboBox1.removeAllItems();
     nyBloggKlass.valjKategori(jComboBox1);
+    
+    jPanel2.setPreferredSize(new Dimension(40, 30));
     
     }
 
@@ -66,8 +69,6 @@ public String kategori = "";
         formBlg_Lbl = new javax.swing.JLabel();
         informell_Blogg_btn = new javax.swing.JPanel();
         informBlg_Lbl = new javax.swing.JLabel();
-        notis_btn = new javax.swing.JPanel();
-        notis_lbl = new javax.swing.JLabel();
         projects_btn1 = new javax.swing.JPanel();
         projBtn_Lbl1 = new javax.swing.JLabel();
         notis_btn1 = new javax.swing.JPanel();
@@ -155,30 +156,6 @@ public String kategori = "";
             }
         });
         informell_Blogg_btn.add(informBlg_Lbl, java.awt.BorderLayout.CENTER);
-
-        notis_btn.setBackground(new java.awt.Color(3, 194, 252));
-        notis_btn.setForeground(new java.awt.Color(255, 255, 255));
-        notis_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                notis_btnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                notis_btnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                notis_btnMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                notis_btnMouseReleased(evt);
-            }
-        });
-        notis_btn.setLayout(new java.awt.BorderLayout());
-
-        notis_lbl.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        notis_lbl.setForeground(new java.awt.Color(255, 255, 255));
-        notis_lbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        notis_lbl.setText("Notiser");
-        notis_btn.add(notis_lbl, java.awt.BorderLayout.CENTER);
 
         projects_btn1.setBackground(new java.awt.Color(3, 194, 252));
         projects_btn1.setPreferredSize(new java.awt.Dimension(480, 100));
@@ -317,9 +294,7 @@ public String kategori = "";
                     .addComponent(formel_Blogg_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(6, 6, 6)
                     .addComponent(informell_Blogg_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(2899, 2899, 2899)
-                    .addComponent(notis_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(231, 231, 231)))
+                    .addGap(3350, 3350, 3350)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,14 +316,10 @@ public String kategori = "";
                 .addContainerGap())
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
+                    .addGap(12, 12, 12)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(notis_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(1, 1, 1)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(formel_Blogg_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(informell_Blogg_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(formel_Blogg_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(informell_Blogg_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(991, Short.MAX_VALUE)))
         );
 
@@ -381,18 +352,6 @@ public String kategori = "";
         informell_Blogg_btn.setVisible(true);
     }//GEN-LAST:event_informell_Blogg_btnMouseExited
 
-    private void notis_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notis_btnMouseEntered
-        notis_btn.setBackground(hoverColorBtn);
-        notis_btn.setVisible(false);
-        notis_btn.setVisible(true);
-    }//GEN-LAST:event_notis_btnMouseEntered
-
-    private void notis_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notis_btnMouseExited
-        notis_btn.setBackground(baseColorBtn);
-        notis_btn.setVisible(false);
-        notis_btn.setVisible(true);
-    }//GEN-LAST:event_notis_btnMouseExited
-
     private void formel_Blogg_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formel_Blogg_btnMouseReleased
         formel_Blogg_btn.setBackground(hoverColorBtn);
         formel_Blogg_btn.setVisible(false);
@@ -416,18 +375,6 @@ public String kategori = "";
         informell_Blogg_btn.setVisible(false);
         informell_Blogg_btn.setVisible(true);
     }//GEN-LAST:event_informell_Blogg_btnMouseReleased
-
-    private void notis_btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notis_btnMousePressed
-        notis_btn.setBackground(clickedColorBtn);
-        notis_btn.setVisible(false);
-        notis_btn.setVisible(true);
-    }//GEN-LAST:event_notis_btnMousePressed
-
-    private void notis_btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notis_btnMouseReleased
-        notis_btn.setBackground(hoverColorBtn);
-        notis_btn.setVisible(false);
-        notis_btn.setVisible(true);
-    }//GEN-LAST:event_notis_btnMouseReleased
     //En klick funktion, i dem här ska alla länkar till andra metoder och klasser ligga
     private void formel_Blogg_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formel_Blogg_btnMouseClicked
 
@@ -771,9 +718,7 @@ public String kategori = "";
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel notis_btn;
     private javax.swing.JPanel notis_btn1;
-    private javax.swing.JLabel notis_lbl;
     private javax.swing.JLabel notis_lbl1;
     private javax.swing.JLabel projBtn_Lbl1;
     private javax.swing.JPanel projects_btn1;
@@ -785,15 +730,15 @@ public String kategori = "";
 
     //Initierar alla delar av huvud UI
     public void initMainWindow() {
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        formel_Blogg_btn.setBackground(baseColorBtn);
+        //formel_Blogg_btn.setBackground(baseColorBtn);
 
-        informell_Blogg_btn.setBackground(baseColorBtn);
+        //informell_Blogg_btn.setBackground(baseColorBtn);
 
-        notis_btn.setBackground(baseColorBtn);
+        
 
-        jPanel2.setOpaque(true);
+        //jPanel2.setOpaque(true);
 
         System.out.println("Init of Main Page Complete");
     }

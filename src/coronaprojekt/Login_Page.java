@@ -136,13 +136,13 @@ public class Login_Page extends javax.swing.JFrame {
                 if (result1.equals(losenord) && inloggadAdmin.equals("J")) {
 
                     this.setVisible(false);
-                    new Main_Page(minDatabaskoppling, getUserID()).setVisible(true);
+                    new ny_main_page(minDatabaskoppling, getUserID()).setVisible(true);
 
                     admin = true;
                 } else if (result1.equals(losenord)) {
                     admin = false;
                     this.setVisible(false);
-                    new Main_Page(minDatabaskoppling, getUserID()).setVisible(true);
+                    new ny_main_page(minDatabaskoppling, getUserID()).setVisible(true);
 
                 } else {
                     System.out.println("Ogiltigt lösenord");

@@ -201,7 +201,7 @@ public class SkapaBlogginlagg extends javax.swing.JFrame {
         lblConfirmAddedPost.setText("");
     }//GEN-LAST:event_TxtAreaBloggTextFocusGained
     
-    private String getCurrentDateTime(){
+    public String getCurrentDateTime(){
         LocalDate localDate = LocalDate.now();
         return DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate);
     }
