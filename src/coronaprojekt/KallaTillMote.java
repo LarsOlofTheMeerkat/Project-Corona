@@ -29,6 +29,8 @@ public class KallaTillMote extends javax.swing.JFrame {
         this.idb=idb;  
         cboxSkrivUtAnvandare();
         this.anvandareID=anvandareID;
+        
+        setDefaultCloseOperation(this.HIDE_ON_CLOSE);
     }
 
 
@@ -306,12 +308,13 @@ public class KallaTillMote extends javax.swing.JFrame {
         try{ 
             int moteid = Integer.parseInt(idb.getAutoIncrement("mote", "id"));
             idb.insert("INSERT INTO MOTE (ID, TID, DAG, ADMINID, TITLE, ANTECKNING, PLATS) VALUES ("+moteid+", '"+""+"', '"+""+"', "+anvandareID+", '"+title+"', '"+anteckning+"', '"+plats+"')");
-    
+            System.out.println("INSERT INTO MOTE (ID, TID, DAG, ADMINID, TITLE, ANTECKNING, PLATS) VALUES ("+moteid+", '"+""+"', '"+""+"', "+anvandareID+", '"+title+"', '"+anteckning+"', '"+plats+"')");
             for(int i = 0; i< modelAnvandare.getSize();i++){
                 int id = Integer.parseInt(idb.getAutoIncrement("deltar", "id"));
                 String fraga = "SELECT id from anvandare where anvandarnamn = '"+anvandare[i]+"'";
                 int anvandarIdAttBjudaIn = Integer.parseInt(idb.fetchSingle(fraga));         
                 idb.insert("INSERT INTO DELTAR (ID, MOTEID, ANVANDAREID) VALUES ("+id+", "+moteid+", "+anvandarIdAttBjudaIn+")");
+                System.out.println("INSERT INTO DELTAR (ID, MOTEID, ANVANDAREID) VALUES ("+id+", "+moteid+", "+anvandarIdAttBjudaIn+")");
             } 
             
             for(int i = 0; i< modelDatum.getSize();i++){
@@ -319,6 +322,7 @@ public class KallaTillMote extends javax.swing.JFrame {
                 String[] datumTid = forslagnaDatumTid.split("kl");
                 int id = Integer.parseInt(idb.getAutoIncrement("FORESLAGNA_MOTESTIDER", "id"));  
                 idb.insert("INSERT INTO FORESLAGNA_MOTESTIDER (ID, MOTEID, TID, DAG) VALUES ("+id+", "+moteid+", '"+datumTid[1]+"', '"+datumTid[0]+"')");
+                System.out.println("INSERT INTO FORESLAGNA_MOTESTIDER (ID, MOTEID, TID, DAG) VALUES ("+id+", "+moteid+", '"+datumTid[1]+"', '"+datumTid[0]+"')");
             }    
         }catch(InfException ex){
             System.out.println("Kunde inte lägga in mötet i databasen: " + ex.getMessage());

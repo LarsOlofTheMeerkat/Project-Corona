@@ -132,12 +132,12 @@ this.txtArea.setWrapStyleWord(true);
         
         if(!res.containsKey("TYP")){
             
-        this.typ = "Blogg";
+        this.typ = "Blogg:";
         this.knapp = new JButton("Se artikel");
         this.knapp.addActionListener(this);
         
         }else{
-            this.typ = res.get("TYP");
+            this.typ = "Kommtentar:";
         }
         minDatabaskoppling = db;
         
