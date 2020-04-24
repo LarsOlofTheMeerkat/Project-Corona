@@ -22,14 +22,14 @@ public class Kalender {
     
     public String convertDateToString(String date1){
         String format = "";
-        System.out.println(date1);
+        //System.out.println(date1);
         String[] Words = date1.split(" ");
         String theDate = date1.replace(Words[Words.length-2], "").trim();
-        System.out.println(theDate);
+        //System.out.println(theDate);
         java.util.Date date = new Date(theDate);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         format = formatter.format(date);
-        System.out.println(format);
+        //System.out.println(format);
         return format;
     }
     

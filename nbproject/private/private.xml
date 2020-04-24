@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/gitProjekt/CoronaProjekt/src/coronaprojekt/Blogg.java</file>
-            <file>file:/C:/gitProjekt/CoronaProjekt/src/coronaprojekt/Anvandare.java</file>
-            <file>file:/C:/gitProjekt/CoronaProjekt/src/coronaprojekt/Mote.java</file>
-            <file>file:/C:/gitProjekt/CoronaProjekt/src/coronaprojekt/Start.java</file>
+            <file>file:/C:/Users/johan/Documents/NetBeansProjects/Project-Corona/src/coronaprojekt/MotenJagSkapat.java</file>
+            <file>file:/C:/Users/johan/Documents/NetBeansProjects/Project-Corona/src/coronaprojekt/SkapaBlogginlagg.java</file>
+            <file>file:/C:/Users/johan/Documents/NetBeansProjects/Project-Corona/src/coronaprojekt/KalenderGUI.java</file>
+            <file>file:/C:/Users/johan/Documents/NetBeansProjects/Project-Corona/src/coronaprojekt/SvaraPaMote.java</file>
+            <file>file:/C:/Users/johan/Documents/NetBeansProjects/Project-Corona/src/coronaprojekt/Kalender.java</file>
+            <file>file:/C:/Users/johan/Documents/NetBeansProjects/Project-Corona/src/coronaprojekt/Mote.java</file>
+            <file>file:/C:/Users/johan/Documents/NetBeansProjects/Project-Corona/src/coronaprojekt/Start.java</file>
+            <file>file:/C:/Users/johan/Documents/NetBeansProjects/Project-Corona/src/coronaprojekt/KallaTillMote.java</file>
         </group>
     </open-files>
 </project-private>
