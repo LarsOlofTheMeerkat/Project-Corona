@@ -6,7 +6,7 @@
 package coronaprojekt;
 
 
-import java.util.Properties;
+/*import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -14,14 +14,14 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage;*/
 
 /**
  *
  * @author Main
  */
 public class SkickaEmail {
-        public static void skicka(String mottagare, String amne, String msg) {
+        /*public static void skicka(String mottagare, String amne, String msg) {
         System.out.println("Förbereder att skicka mail..");
         Properties properties = new Properties();
 
@@ -59,5 +59,5 @@ public class SkickaEmail {
             System.out.println("Error kunde inte förbereda email: " + ex.getMessage());
         }
         return null;
-    }
+    }*/
 }
