@@ -61,12 +61,12 @@ private static InfDB minDatabaskoppling;
             //new SkapaBlogginlagg(minDatabaskoppling, 2,"infromell").setVisible(true);
             //Anvandare obj1 = new Anvandare(minDatabaskoppling, 3, 10);
             //obj1.testlaggTillAnvandare();
-            
+
             //new FilGUI(minDatabaskoppling).setVisible(true);
-            
+
             new Login_Page(minDatabaskoppling).setVisible(true);
-            
-            
+
+
             //Anvandare obj1 = new Anvandare(minDatabaskoppling, 3, 10);
             //obj1.testlaggTillAnvandare();
         }catch(InfException ettUndantag){
