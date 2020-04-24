@@ -33,15 +33,21 @@ import java.awt.event.*;
 public class Main_Page extends javax.swing.JFrame {
 
     public static InfDB minDatabaskoppling;
-
+public static int anvandareID;
+public String kategori = "";
     /**
      * Creates new form Main_Page
      */
-    public Main_Page(InfDB minDatabaskoppling) {
+    public Main_Page(InfDB minDatabaskoppling, int anvandareID) {
         initComponents();
         initMainWindow();
         this.minDatabaskoppling = minDatabaskoppling;
-
+        this.anvandareID = anvandareID;
+    
+    Blogg nyBloggKlass = new Blogg(minDatabaskoppling, 10);
+    jComboBox1.removeAllItems();
+    nyBloggKlass.valjKategori(jComboBox1);
+    
     }
 
     /**
@@ -65,6 +71,9 @@ public class Main_Page extends javax.swing.JFrame {
         notis_btn1 = new javax.swing.JPanel();
         notis_lbl1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main_Window_Pane");
@@ -224,28 +233,56 @@ public class Main_Page extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridLayout(0, 1));
 
+        jButton1.setText("Mitt nyhetsflöde");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Skapa blogg inlägg");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(980, 980, 980)
-                .addComponent(projects_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(notis_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(980, 980, 980)
+                        .addComponent(projects_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(notis_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1925, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(2383, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(formel_Blogg_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(6, 6, 6)
-                            .addComponent(informell_Blogg_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(4, 4, 4)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1925, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(1936, 1936, 1936)
+                    .addComponent(formel_Blogg_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(6, 6, 6)
+                    .addComponent(informell_Blogg_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(2899, 2899, 2899)
                     .addComponent(notis_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(231, 231, 231)))
         );
@@ -256,7 +293,14 @@ public class Main_Page extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(notis_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(projects_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(997, Short.MAX_VALUE))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(33, 33, 33)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 916, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
@@ -267,8 +311,7 @@ public class Main_Page extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(formel_Blogg_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(informell_Blogg_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGap(14, 14, 14)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 982, Short.MAX_VALUE)))
+                    .addContainerGap(991, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jPanel2);
@@ -360,37 +403,45 @@ public class Main_Page extends javax.swing.JFrame {
 
     private void formBlg_LblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formBlg_LblMouseClicked
         System.out.println("Formella");
-
-        Blogg inlagg = new Blogg(this.minDatabaskoppling, 5);
-        ArrayList<HashMap<String, String>> inlaggen = inlagg.hamtaFormellaBloggInlagg();
+         jPanel1.removeAll();
+         Blogg inlagg = new Blogg(this.minDatabaskoppling, 5);
+         ArrayList<HashMap<String, String>> inlaggen = new ArrayList<>();
+         if(this.kategori.length() > 0){
+             inlaggen = inlagg.hamtaFormellaBloggInlaggMedKategori(this.kategori);
+         }else{
+            inlaggen = inlagg.hamtaFormellaBloggInlagg();
+         }
+         
+         if(inlaggen != null && inlaggen.size() > 0){
         ArrayList<HashMap<String, String>> formellaBloggInlaggMedAnvandare = inlagg.hamtaBloggInlaggMedAnvandare(inlaggen);
-
-        jPanel1.removeAll();
-
+        
+        
+        
         //jScrollPane1.getViewport().add(tabellen, null);
         javax.swing.JLabel hej = new JLabel();
         hej.setText("Här visas alla formella inlägg");
         jPanel1.add(hej, null);
-        for (int i = 0; i < formellaBloggInlaggMedAnvandare.size(); i++) {
-
+        for(int i =0; i < formellaBloggInlaggMedAnvandare.size(); i++){
+            
             // hämta kommentarer till blog
             ArrayList kommentarer = new Kommentar(minDatabaskoppling)
                     .hamtaKommentarerTillBlogg(Integer.parseInt(formellaBloggInlaggMedAnvandare.get(i).get("ID")));
-
+ 
             hej = new JLabel();
             javax.swing.JLabel hej2 = new JLabel();
-            ettInlagg ettInlagg1 = new ettInlagg(this.minDatabaskoppling, formellaBloggInlaggMedAnvandare.get(i), 1, kommentarer);
-
+            ettInlagg ettInlagg1 = new ettInlagg( this.minDatabaskoppling, formellaBloggInlaggMedAnvandare.get(i), 1, kommentarer);
+            
             //ettInlagg1.setPost();
             hej.setText(ettInlagg1.getRubrik());
             hej2.setText(ettInlagg1.getSkapad());
-
+            
             JButton btn = ettInlagg1.getButton();
-
+            
             jPanel1.add(hej, null);
             jPanel1.add(hej2, null);
             jPanel1.add(btn, null);
-
+            
+            
         }
         // uppdatera jframe
         //frame.setVisible(true);
@@ -399,44 +450,59 @@ public class Main_Page extends javax.swing.JFrame {
         /*JScrollPane panelPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);*/
         //jPanel1.add(panel);
-
-        SwingUtilities.updateComponentTreeUI(this);
+        
+       
+         }else{
+             javax.swing.JLabel hej2 = new JLabel();
+             hej2.setText("Fanns inga artiklar");
+             jPanel1.add(hej2, null);
+         }
+         
+         SwingUtilities.updateComponentTreeUI(this);
 
     }//GEN-LAST:event_formBlg_LblMouseClicked
 
     private void informBlg_LblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_informBlg_LblMouseClicked
-        System.out.println("informella");
-
-        Blogg inlagg = new Blogg(this.minDatabaskoppling, 5);
-        ArrayList<HashMap<String, String>> inlaggen = inlagg.hamtaInformellaBloggInlagg();
-        ArrayList<HashMap<String, String>> informellaBloggInlaggMedAnvandare = inlagg.hamtaBloggInlaggMedAnvandare(inlaggen);
-
+        System.out.println("Informella");
         jPanel1.removeAll();
-
+         Blogg inlagg = new Blogg(this.minDatabaskoppling, 5);
+         ArrayList<HashMap<String, String>> inlaggen = new ArrayList<>();
+         if(this.kategori.length() > 0){
+             inlaggen = inlagg.hamtaInformellaBloggInlaggMedKategori(this.kategori);
+         }else{
+            inlaggen = inlagg.hamtaFormellaBloggInlagg();
+         }
+         
+         if(inlaggen != null && inlaggen.size() > 0){
+        ArrayList<HashMap<String, String>> formellaBloggInlaggMedAnvandare = inlagg.hamtaBloggInlaggMedAnvandare(inlaggen);
+        
+        
+        
         //jScrollPane1.getViewport().add(tabellen, null);
         javax.swing.JLabel hej = new JLabel();
-        hej.setText("Här visas alla informella inlägg");
+        hej.setText("Här visas alla Informella inlägg");
         jPanel1.add(hej, null);
-        for (int i = 0; i < informellaBloggInlaggMedAnvandare.size(); i++) {
-
+        for(int i =0; i < formellaBloggInlaggMedAnvandare.size(); i++){
+            
             // hämta kommentarer till blog
             ArrayList kommentarer = new Kommentar(minDatabaskoppling)
-                    .hamtaKommentarerTillBlogg(Integer.parseInt(informellaBloggInlaggMedAnvandare.get(i).get("ID")));
-
+                    .hamtaKommentarerTillBlogg(Integer.parseInt(formellaBloggInlaggMedAnvandare.get(i).get("ID")));
+ 
             hej = new JLabel();
             javax.swing.JLabel hej2 = new JLabel();
-            ettInlagg ettInlagg1 = new ettInlagg(this.minDatabaskoppling, informellaBloggInlaggMedAnvandare.get(i), 1, kommentarer);
-
+            ettInlagg ettInlagg1 = new ettInlagg( this.minDatabaskoppling, formellaBloggInlaggMedAnvandare.get(i), 1, kommentarer);
+            
             //ettInlagg1.setPost();
             hej.setText(ettInlagg1.getRubrik());
             hej2.setText(ettInlagg1.getSkapad());
-
+            
             JButton btn = ettInlagg1.getButton();
-
+            
             jPanel1.add(hej, null);
             jPanel1.add(hej2, null);
             jPanel1.add(btn, null);
-
+            
+            
         }
         // uppdatera jframe
         //frame.setVisible(true);
@@ -445,9 +511,14 @@ public class Main_Page extends javax.swing.JFrame {
         /*JScrollPane panelPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);*/
         //jPanel1.add(panel);
-
-        SwingUtilities.updateComponentTreeUI(this);
-
+        
+       
+         }else{
+             javax.swing.JLabel hej2 = new JLabel();
+             hej2.setText("Fanns inga artiklar");
+             jPanel1.add(hej2, null);
+         }
+ SwingUtilities.updateComponentTreeUI(this);
     }//GEN-LAST:event_informBlg_LblMouseClicked
 
     private void projBtn_Lbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_projBtn_Lbl1MouseClicked
@@ -490,6 +561,73 @@ public class Main_Page extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_notis_btn1MouseReleased
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jPanel1.removeAll();
+        Anvandare obj1 = new Anvandare(minDatabaskoppling, this.anvandareID, 1);
+        HashMap<String, Boolean> installningar = new HashMap<String, Boolean>();
+        installningar.put("bloggnotis", true);
+        installningar.put("kommentarer", true);
+        installningar.put("bloggtags", true);
+        ArrayList<HashMap<String, String>> res = obj1.anvandarSidan(installningar);
+        System.out.println(res);
+        
+        javax.swing.JLabel hej = new JLabel();
+        for(int i =0; i < res.size(); i++){
+            
+ 
+            hej = new JLabel();
+            javax.swing.JLabel hej2 = new JLabel();
+            javax.swing.JLabel hej3 = new JLabel();
+            javax.swing.JLabel hej4 = new JLabel();
+            ettInlagg ettInlagg1 = new ettInlagg( this.minDatabaskoppling, res.get(i), 1);
+            
+            
+            //ettInlagg1.setPost();
+            hej4.setText(ettInlagg1.getTyp());
+            hej.setText(ettInlagg1.getRubrik());
+            hej2.setText(ettInlagg1.getSkapad());
+            hej3.setText(ettInlagg1.getKommentar());
+            
+            JButton btn = ettInlagg1.getButton();
+            
+            jPanel1.add(hej4, null);
+            jPanel1.add(hej, null);
+            jPanel1.add(hej2, null);
+            jPanel1.add(hej3, null);
+            if(btn != null){
+            jPanel1.add(btn, null);
+            }
+            
+            
+        }
+        
+        
+        javax.swing.JLabel hej1 = new JLabel();
+        hej1.setText("----");
+        jPanel1.add(hej1, null);
+        SwingUtilities.updateComponentTreeUI(this);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        System.out.println(jComboBox1.getSelectedItem());
+        
+        if(jComboBox1.getSelectedItem() != null){
+        this.kategori = jComboBox1.getSelectedItem().toString();
+        }
+       
+        System.out.println(this.kategori);
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        new SkapaBlogginlagg(minDatabaskoppling,
+        this.anvandareID,
+        "test").setVisible(true);
+        
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -520,7 +658,7 @@ public class Main_Page extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main_Page(minDatabaskoppling).setVisible(true);
+                new Main_Page(minDatabaskoppling,3).setVisible(true);
             }
         });
     }
@@ -530,6 +668,9 @@ public class Main_Page extends javax.swing.JFrame {
     private javax.swing.JPanel formel_Blogg_btn;
     private javax.swing.JLabel informBlg_Lbl;
     private javax.swing.JPanel informell_Blogg_btn;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel notis_btn;

@@ -57,7 +57,7 @@ private static InfDB minDatabaskoppling;
             // Skicka databasen till en sida
             //new TestaVisaInlagg(minDatabaskoppling).setVisible(true);
             //new NewsFeed_1(minDatabaskoppling).setVisible(true);
-            new Main_Page(minDatabaskoppling).setVisible(true);
+            new Main_Page(minDatabaskoppling,3).setVisible(true);
             //new SkapaBlogginlagg(minDatabaskoppling, 2,"infromell").setVisible(true);
             //Anvandare obj1 = new Anvandare(minDatabaskoppling, 3, 10);
             //obj1.testlaggTillAnvandare();

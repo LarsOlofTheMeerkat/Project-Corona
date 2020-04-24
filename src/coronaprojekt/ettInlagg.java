@@ -54,6 +54,8 @@ public class ettInlagg  implements ActionListener{
     private javax.swing.JButton knapp;
     
     private ArrayList<HashMap<String, String>> kommentarer;
+    private String kommentar;
+    private String typ;
     
     
     
@@ -99,6 +101,46 @@ this.txtArea.setWrapStyleWord(true);
         
         this.knapp = new JButton("Se artikel");
         this.knapp.addActionListener(this);
+        minDatabaskoppling = db;
+    }
+    
+    public ettInlagg(InfDB db, HashMap<String, String> res,
+            int artikelEllerBlogg){
+        
+      
+        
+        if(artikelEllerBlogg == 1){
+            // blogg inlägg
+            this.text = res.get("TEXT");
+            this.anvandareID = res.get("ANVANDAREID");
+            this.informell = res.get("INFORMELL");
+            this.skapad = res.get("SKAPAD");
+            this.rubrik = res.get("RUBRIK");
+            this.kommentar = res.get("KOMMENTAR");
+            
+        }
+        
+        this.postPanel = new JPanel();
+        this.txtArea = new JTextArea(5,2);
+        this.txtArea.setEditable(false);
+this.txtArea.setLineWrap(true);
+this.txtArea.setWrapStyleWord(true);
+        this.rubrikLbl = new JLabel();
+        this.nameLbl = new JLabel();
+        this.imageLbl = new JLabel();
+        this.datumLabel = new JLabel();
+        
+        if(!res.containsKey("TYP")){
+            
+        this.typ = "Blogg";
+        this.knapp = new JButton("Se artikel");
+        this.knapp.addActionListener(this);
+        
+        }else{
+            this.typ = res.get("TYP");
+        }
+        minDatabaskoppling = db;
+        
     }
     
     public void actionPerformed(ActionEvent e){
@@ -121,11 +163,12 @@ this.txtArea.setWrapStyleWord(true);
         jPanel1.add(this.getText(), null);
         
         JButton enknapp = new JButton("Se kommentarer");
-        enknapp.addActionListener(new enKommentar(this.kommentarer));
+        enknapp.addActionListener(new enKommentar(minDatabaskoppling,this.kommentarer));
+        System.out.println(this.kommentarer);
         jPanel1.add(enknapp, null);
         
         JButton enknapp1 = new JButton("Skriv en kommentar");
-        enknapp1.addActionListener(new enKommentar("skrivkommentar"));
+        enknapp1.addActionListener(new enKommentar(minDatabaskoppling,"skrivkommentar", this.ID));
         jPanel1.add(enknapp1, null);
         
         // images
@@ -179,6 +222,14 @@ this.txtArea.setWrapStyleWord(true);
     
     public String getRubrik(){
         return this.rubrik;
+    }
+    
+    public String getKommentar(){
+        return this.kommentar;
+    }
+    
+    public String getTyp(){
+        return this.typ;
     }
     
     public javax.swing.JLabel getRubrik(int hej){

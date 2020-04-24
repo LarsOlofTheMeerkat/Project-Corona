@@ -6,6 +6,7 @@
 package coronaprojekt;
 
 import static coronaprojekt.Main_Page.minDatabaskoppling;
+import static coronaprojekt.ettInlagg.minDatabaskoppling;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -32,7 +33,6 @@ import java.io.IOException;
 public class enKommentar  implements ActionListener{
 
     public static InfDB minDatabaskoppling;
-    Login_Page user = new Login_Page(minDatabaskoppling);
     String userName = "";
     String text;
     String anvandareID;
@@ -55,14 +55,30 @@ public class enKommentar  implements ActionListener{
     private ArrayList<HashMap<String, String>> kommentarer;
     
     private String onlyDisplay = "";
+    private int bloggID;
+    private JTextArea text1;
     
-    
-    public enKommentar(ArrayList<HashMap<String, String>> kommentarer){
+    public enKommentar(InfDB db, ArrayList<HashMap<String, String>> kommentarer){
         this.kommentarer = kommentarer;
+        minDatabaskoppling = db;
     }
     
-     public enKommentar(String text){
+     public enKommentar(InfDB db,String text){
         this.onlyDisplay = text;
+        minDatabaskoppling = db;
+    }
+     
+     public enKommentar(InfDB db,String text, int bloggID){
+        this.onlyDisplay = text;
+        this.bloggID = bloggID;
+        minDatabaskoppling = db;
+    }
+     
+     public enKommentar(InfDB db,String text, int bloggID, JTextArea text1){
+        this.onlyDisplay = text;
+        this.bloggID = bloggID;
+        this.text1 = text1;
+        minDatabaskoppling = db;
     }
     
     public void actionPerformed(ActionEvent e){
@@ -82,7 +98,7 @@ public class enKommentar  implements ActionListener{
         jPanel1.add(this.txtArea, null);
         
         JButton enknapp = new JButton("Kommentera");
-        enknapp.addActionListener(new enKommentar("kommentera"));
+        enknapp.addActionListener(new enKommentar(minDatabaskoppling,"kommentera", this.bloggID, this.txtArea));
         jPanel1.add(enknapp, null);
         
         nyJFRAME.add(jPanel1);
@@ -104,6 +120,12 @@ public class enKommentar  implements ActionListener{
         
         jPanel1.add(text, null);
         
+        Kommentar nyKommentar = new Kommentar(minDatabaskoppling);
+        System.out.println(this.bloggID);
+        System.out.println(this.text1.getText());
+        nyKommentar.skrivaKommentar(this.bloggID, this.text1.getText());
+        System.out.println("Kommentar gjord");
+        
         nyJFRAME.add(jPanel1);
         SwingUtilities.updateComponentTreeUI(nyJFRAME);
         
@@ -119,13 +141,17 @@ public class enKommentar  implements ActionListener{
         jPanel1.setLayout(boxlayout);
         nyJFRAME.setLayout(boxlayout);
         
-        
+        if(this.kommentarer != null && this.kommentarer.size() > 0){
         for(int i = 0; i < this.kommentarer.size(); i++){
             JLabel kommentar = new JLabel();
             kommentar.setText(this.kommentarer.get(i).get("TEXT"));
             jPanel1.add(kommentar);
         }
-        
+        }else{
+            JLabel kommentar = new JLabel();
+            kommentar.setText("Finns inga kommentarer.");
+            jPanel1.add(kommentar);
+        }
         
         nyJFRAME.add(jPanel1);
         SwingUtilities.updateComponentTreeUI(nyJFRAME);

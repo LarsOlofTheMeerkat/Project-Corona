@@ -49,13 +49,17 @@ public class Kommentar {
     public ArrayList hamtaKommentarerTillBlogg(int bloggId){
         ArrayList<HashMap<String, String>> resultat = new ArrayList<>();
         try{
-            String res1 = "SELECT BLOGGID FROM KOMMENTARER_TILL_BLOGG WHERE BLOGGID = " + bloggId;
+            String res1 = "SELECT KOMMENTARID FROM KOMMENTARER_TILL_BLOGG WHERE BLOGGID = " + bloggId;
             ArrayList<HashMap<String, String>> res = this.db.fetchRows(res1);
             
-            ArrayList lista = this.skapaEnArrayMedEndastEttVarde(res, "BLOGGID");
+            if(res != null){
+            ArrayList lista = this.skapaEnArrayMedEndastEttVarde(res, "KOMMENTARID");
             
+            System.out.println("Lista");
+            System.out.println(res);
             String fraga = "SELECT * FROM KOMMENTAR WHERE ID IN " + this.fixaListaMedIds(lista);
             resultat = this.db.fetchRows(fraga);
+            }
             
         }catch(InfException e){
             System.out.println(e);
@@ -63,43 +67,28 @@ public class Kommentar {
         return resultat;
     }
     
-    public boolean skrivaEnKommentarTillBlogg(int BloggID, String text){
+    public boolean skrivaKommentar(int bloggID, String text) {
         boolean resultat = false;
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-        
+        String date = new SimpleDateFormat ("yyyy-MM-dd").format(new Date());
         try{
+            System.out.println("BLOGGID");
+            System.out.println(bloggID);
+            String fraga = "SELECT ID FROM BLOGG WHERE ID=" + bloggID +"";
             
-        // Kontrollera om BloggID finns i databasen
-        String fraga = "SELCT ID FROM BLOGG WHERE ID = " + BloggID;
-        int res = Integer.parseInt(this.db.fetchSingle(fraga));
-        
-        if(BloggID == res){
-            
-        }
-        
-        // om bloggID finns kontrollera att text är mindre än 3000 ord (alltså length).
-        
-        // lägg till sedan en kommentar i databasen
-        // alltså lägg till i "kommentar" och "kommentarer_till_blogg" tabellen
-           int nyKommentarID = Integer.parseInt(db.getAutoIncrement("KOMMENTAR", "ID"));
-        fraga = "Insert into kommentar(ID, TEXT, SKAPAD) VALUES(" +nyKommentarID+ ","
-                + text + "," + date + ")"; 
-        
-        this.db.insert(fraga);
-
-        fraga = "Insert into kommentarer_till_blogg(KOMMENTARID, BLOGGID) VALUES(" +nyKommentarID+ ","
-                + BloggID + ")"; 
-        
-        this.db.insert(fraga);
-        
-        // om allt gick ok sätt resultat till true
-        resultat = true;
-        }catch(InfException e){
-            System.out.println(e);
-        }
-        
-        
-        return resultat;
+            int res = Integer.parseInt(this.db.fetchSingle(fraga));
+            if(bloggID == res){            
+                int nyKommentarID = Integer.parseInt(db.getAutoIncrement("KOMMENTAR","ID"));
+                String fraga1 = "Insert into kommentar (ID, TEXT, SKAPAD) VALUES(" + nyKommentarID + ",'" + text + "','" + date + "')";
+                this.db.insert(fraga1);
+                String fraga2 = "insert into kommentarer_till_blogg (KOMMENTARID, BLOGGID) VALUES (" + nyKommentarID + "," + bloggID + ")";
+                this.db.insert(fraga2);
+                resultat = true;
+                }   
+            }
+        catch (InfException e) {
+        System.out.println(e);
+        } 
+    return resultat;
     }
     
 }

@@ -104,6 +104,7 @@ public class Anvandare {
             public int compare(HashMap<String, String> mapping1,
                     HashMap<String, String> mapping2) {
                 try {
+                    System.out.println(mapping1.get("SKAPAD"));
                     return f.parse(mapping2.get("SKAPAD")).compareTo(f.parse(mapping1.get("SKAPAD")));
                 } catch (ParseException e) {
                     throw new IllegalArgumentException(e);
@@ -174,7 +175,7 @@ public class Anvandare {
                 enHashMap.put("BLOGG_ID", bloggInlagg.get("ID"));
                 enHashMap.put("KOMMENTAR", enKommentar.get("TEXT"));
                 enHashMap.put("SKAPAD", enKommentar.get("SKAPAD"));
-
+                enHashMap.put("TYP", enKommentar.get("KOMMENTAR"));
                 kommentarer_final.add(enHashMap);
             }
 
@@ -223,6 +224,7 @@ public class Anvandare {
                 enHashMap.put("BLOGG_ID", ettBloggInlagg.get("ID"));
                 enHashMap.put("ANVANDARE", this.fixaStrangMedKolon(listaMedNamn));
                 enHashMap.put("SKAPAD", ettBloggInlagg.get("SKAPAD"));
+                enHashMap.put("TYP", ettBloggInlagg.get("BLOGG"));
 
                 tags_final.add(enHashMap);
 
@@ -232,7 +234,7 @@ public class Anvandare {
         }
 
         // sortera efter datum
-        resultat = this.setListOrderByDate(resultat);
+        //resultat = this.setListOrderByDate(resultat);
 
         return resultat;
     }

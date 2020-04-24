@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -44,7 +45,14 @@ public class SkapaBlogginlagg extends javax.swing.JFrame {
         this.vilkenBlogg=vilkenBlogg;
         choosenFile="";
         cboxSkrivUtKategorier();
+        
+        jComboBox1.removeAllItems();
+        jComboBox1.addItem("J");
+        jComboBox1.addItem("N");
+        
+        setDefaultCloseOperation(this.HIDE_ON_CLOSE);
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,6 +71,7 @@ public class SkapaBlogginlagg extends javax.swing.JFrame {
         BtnAddPost = new javax.swing.JButton();
         lblChoosenFile = new javax.swing.JLabel();
         lblConfirmAddedPost = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,6 +100,8 @@ public class SkapaBlogginlagg extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,7 +117,9 @@ public class SkapaBlogginlagg extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(cboxValjKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(297, 297, 297)
+                                .addGap(30, 30, 30)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(210, 210, 210)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(BtnAddFile)
@@ -129,7 +142,8 @@ public class SkapaBlogginlagg extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboxValjKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnAddFile)
-                    .addComponent(BtnAddPost))
+                    .addComponent(BtnAddPost)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblChoosenFile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(86, Short.MAX_VALUE))
@@ -143,9 +157,9 @@ public class SkapaBlogginlagg extends javax.swing.JFrame {
         String bloggText = TxtAreaBloggText.getText();
         String informell;
         if(vilkenBlogg.equals("informell")){
-            informell="J";
+            informell=jComboBox1.getSelectedItem().toString();
         }else{
-            informell="N";
+            informell=jComboBox1.getSelectedItem().toString();
         }
         try{
             int bloggpost_id = Integer.parseInt(idb.getAutoIncrement("blogg", "ID"));
@@ -276,6 +290,7 @@ public class SkapaBlogginlagg extends javax.swing.JFrame {
     private javax.swing.JButton BtnAddPost;
     private javax.swing.JTextArea TxtAreaBloggText;
     private javax.swing.JComboBox<String> cboxValjKategori;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblChoosenFile;
     private javax.swing.JLabel lblConfirmAddedPost;
