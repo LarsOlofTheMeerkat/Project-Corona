@@ -8,6 +8,7 @@ package coronaprojekt;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -62,7 +63,7 @@ public class MotenJagSkapat extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listAntalRoster = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         cboxMinaMoten = new javax.swing.JComboBox<>();
@@ -76,24 +77,19 @@ public class MotenJagSkapat extends javax.swing.JFrame {
 
         jLabel2.setText("Möten du skapat");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listAntalRoster);
 
         jLabel1.setText("Tider : Antal röster en tid fick");
 
         jButton1.setText("Besluta markerad tid för mötet");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Välj mötet att besluta tid för");
 
-        listVilkaSomRostat.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(listVilkaSomRostat);
 
         jLabel4.setText("Vilka som anget tid då de kan ha mötet");
@@ -121,15 +117,11 @@ public class MotenJagSkapat extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(jLabel3))
                     .addComponent(btnVisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(92, 92, 92)))
+                    .addComponent(jLabel4)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
@@ -167,27 +159,66 @@ public class MotenJagSkapat extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     DefaultListModel modelVilkaSomRostat = new DefaultListModel();
+    DefaultListModel modelAntalRoster = new DefaultListModel();
+    DefaultListModel modelTom = new DefaultListModel();
     private void btnVisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisaActionPerformed
         String titel = cboxMinaMoten.getSelectedItem().toString(); 
+        modelVilkaSomRostat.clear();
+        modelAntalRoster.clear();
+        try{
+            String moteid = idb.fetchSingle("select id from mote where title = '"+titel+"'");
+            ArrayList<HashMap<String, String>> anvandareid = idb.fetchRows("select anvandarnamn from anvandare where id in (select anvandareid from rostat_pa_motestider where moteid="+moteid+")");
+            //ArrayList<HashMap<String, String>> anvandareid = idb.fetchRows("select anvandarnamn from anvandare where id in (select anvandareid from rostat_pa_motestider where moteid=39)");
+            Object[] minTitlar = anvandareid.toArray();     
+            for (Object minTitlar1 : minTitlar) {
+                String x = minTitlar1.toString();
+                String y = x.substring(14,x.length()-1);
+                modelVilkaSomRostat.addElement(y);
+            }
+            listVilkaSomRostat.setModel(modelVilkaSomRostat);
+        } catch (InfException ex) {
+            System.out.println("Kunde inte skriva ut anvandarna som röstat: " + ex.getMessage());
+        }
         
         try{
             String moteid = idb.fetchSingle("select id from mote where title = '"+titel+"'");
-            //ArrayList<HashMap<String, String>> anvandareid = idb.fetchRows("select anvandareid from rostat_pa_motestider where moteid = "+moteid+"");
-            ArrayList<HashMap<String, String>> anvandareid = idb.fetchRows("select anvandareid from rostat_pa_motestider where moteid = 39");
-            Object[] minTitlar = anvandareid.toArray();   
-            
-            for (Object minTitlar1 : minTitlar) {
-                modelVilkaSomRostat.addElement(minTitlar1);
+            ArrayList<HashMap<String, String>> resultat = idb.fetchRows("select tid, dag from foreslagna_motestider where moteid = "+moteid+"");
+            Object[] datumTider = resultat.toArray(); 
+            for (Object each : datumTider) {
+                String string = each.toString();
+                String[] split = string.split(",");
+                String datum = split[0].substring(5);
+                String tid = split[1].substring(5,split[1].length()-1);
+                String antalRoster = idb.fetchSingle("select count(*) from rostat_pa_motestider where tid ='"+tid+"' and dag='"+datum+"'");
+                String datumTidRoster = datum + ", " + tid + ", fick " + antalRoster + " röster";
+                modelAntalRoster.addElement(datumTidRoster);
+                listAntalRoster.setModel(modelAntalRoster);
             }
-            listVilkaSomRostat.setModel(modelVilkaSomRostat);
-        
-        
         } catch (InfException ex) {
-            System.out.println("Kunde inte skriva ut anvandarna till cbox: " + ex.getMessage());
+            System.out.println("Kunde inte skriva ut antal roster som röstat: " + ex.getMessage());
         }
-        
 
     }//GEN-LAST:event_btnVisaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String titel = cboxMinaMoten.getSelectedItem().toString(); 
+        String datumTidRoster = listAntalRoster.getSelectedValue();
+
+        String[] split = datumTidRoster.split(",");
+        String datum = split[0];
+        String tid = split[1].substring(1);
+       
+        try{
+           String moteid = idb.fetchSingle("select id from mote where title = '"+titel+"'");
+           idb.update("update mote set tid='"+tid+"', dag='"+datum+"' where id="+moteid+"");
+           JOptionPane.showMessageDialog(null, "Du har bestämt att mötet äger rum: " + datum + " " + tid);
+        } catch (InfException ex) {
+            System.out.println("Kunde inte spara beslutat sluttid för mötet: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Kunde inte spara ditt beslut!");
+        }
+        listAntalRoster.setModel(modelTom);
+        listVilkaSomRostat.setModel(modelTom);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,9 +233,9 @@ public class MotenJagSkapat extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> listAntalRoster;
     private javax.swing.JList<String> listVilkaSomRostat;
     // End of variables declaration//GEN-END:variables
 }

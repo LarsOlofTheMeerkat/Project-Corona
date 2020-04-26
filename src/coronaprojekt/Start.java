@@ -63,7 +63,7 @@ private static InfDB minDatabaskoppling;
             //obj1.testlaggTillAnvandare();
 
             //new FilGUI(minDatabaskoppling).setVisible(true);
-
+            //new MotenJagSkapat(minDatabaskoppling,1).setVisible(true);
             new Login_Page(minDatabaskoppling).setVisible(true);
 
 
