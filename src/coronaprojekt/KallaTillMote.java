@@ -7,6 +7,7 @@ package coronaprojekt;
 
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -132,6 +133,11 @@ public class KallaTillMote extends javax.swing.JFrame {
 
         tfTidFran.setColumns(5);
         tfTidFran.setText("07:15");
+        tfTidFran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfTidFranActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Tid:");
 
@@ -200,13 +206,14 @@ public class KallaTillMote extends javax.swing.JFrame {
                                     .addComponent(cboxPersoner, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(82, 82, 82))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(420, 1015, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(327, 327, 327))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(327, 327, 327))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,13 +279,33 @@ public class KallaTillMote extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     DefaultListModel modelDatum = new DefaultListModel();
     private void btnLaggTillForslagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaggTillForslagActionPerformed
-        Date date = jDateChooser.getDate();
-        Kalender kalender = new Kalender();
-        String datum = kalender.convertDateToString(String.valueOf(date));      
         String tid = tfTidFran.getText();
-        modelDatum.addElement(datum +"  kl  "+ tid);
-        listDatum.setModel(modelDatum);  
-        jDateChooser.setCalendar(null);  
+        boolean kundeConverta = false;
+        try{
+            String[] tider = tid.split(":");
+            int timme = Integer.parseInt(tider[0]);
+            int minut = Integer.parseInt(tider[1]);
+            if (timme >= 00 && timme <= 24 && minut >= 00 && minut <= 59){
+                kundeConverta = true;
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "formatera tid enligt 12:45");
+        }
+
+        try{
+            if(kundeConverta && tid.length()==5){
+                Date date = jDateChooser.getDate();
+                Kalender kalender = new Kalender();
+                String datum = kalender.convertDateToString(String.valueOf(date));   
+                modelDatum.addElement(datum +"  kl  "+ tid);
+                listDatum.setModel(modelDatum);  
+                jDateChooser.setCalendar(null);
+            }
+
+        }catch(Exception e ){
+            JOptionPane.showMessageDialog(null, "Du måste ange ett datum");
+        }
+ 
     }//GEN-LAST:event_btnLaggTillForslagActionPerformed
 
     private void btnTaBortForslagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaBortForslagActionPerformed
@@ -302,34 +329,47 @@ public class KallaTillMote extends javax.swing.JFrame {
         String plats = tfPlats.getText();
         String anteckning = txtareaAnteckning.getText();
 
+  
+        
+        if(title.length()>5 && plats.length()>5 && anteckning.length()>5 && listDatum.getModel().getSize() != 0){
         Object[] datum = modelDatum.toArray();
         Object[] anvandare = modelAnvandare.toArray();
-        
-        try{ 
-            int moteid = Integer.parseInt(idb.getAutoIncrement("mote", "id"));
-            idb.insert("INSERT INTO MOTE (ID, TID, DAG, ADMINID, TITLE, ANTECKNING, PLATS) VALUES ("+moteid+", '"+""+"', '"+""+"', "+anvandareID+", '"+title+"', '"+anteckning+"', '"+plats+"')");
-            System.out.println("INSERT INTO MOTE (ID, TID, DAG, ADMINID, TITLE, ANTECKNING, PLATS) VALUES ("+moteid+", '"+""+"', '"+""+"', "+anvandareID+", '"+title+"', '"+anteckning+"', '"+plats+"')");
-            for(int i = 0; i< modelAnvandare.getSize();i++){
-                int id = Integer.parseInt(idb.getAutoIncrement("deltar", "id"));
-                String fraga = "SELECT id from anvandare where anvandarnamn = '"+anvandare[i]+"'";
-                int anvandarIdAttBjudaIn = Integer.parseInt(idb.fetchSingle(fraga));         
-                idb.insert("INSERT INTO DELTAR (ID, MOTEID, ANVANDAREID) VALUES ("+id+", "+moteid+", "+anvandarIdAttBjudaIn+")");
-                System.out.println("INSERT INTO DELTAR (ID, MOTEID, ANVANDAREID) VALUES ("+id+", "+moteid+", "+anvandarIdAttBjudaIn+")");
-            } 
-            
-            for(int i = 0; i< modelDatum.getSize();i++){
-                String forslagnaDatumTid = String.valueOf(datum[i]).replaceAll("\\s+","");
-                String[] datumTid = forslagnaDatumTid.split("kl");
-                int id = Integer.parseInt(idb.getAutoIncrement("FORESLAGNA_MOTESTIDER", "id"));  
-                idb.insert("INSERT INTO FORESLAGNA_MOTESTIDER (ID, MOTEID, TID, DAG) VALUES ("+id+", "+moteid+", '"+datumTid[1]+"', '"+datumTid[0]+"')");
-                System.out.println("INSERT INTO FORESLAGNA_MOTESTIDER (ID, MOTEID, TID, DAG) VALUES ("+id+", "+moteid+", '"+datumTid[1]+"', '"+datumTid[0]+"')");
-            }    
-        }catch(InfException ex){
-            System.out.println("Kunde inte lägga in mötet i databasen: " + ex.getMessage());
+            try{ 
+                int moteid = Integer.parseInt(idb.getAutoIncrement("mote", "id"));
+                idb.insert("INSERT INTO MOTE (ID, TID, DAG, ADMINID, TITLE, ANTECKNING, PLATS) VALUES ("+moteid+", '"+""+"', '"+""+"', "+anvandareID+", '"+title+"', '"+anteckning+"', '"+plats+"')");
+                System.out.println("INSERT INTO MOTE (ID, TID, DAG, ADMINID, TITLE, ANTECKNING, PLATS) VALUES ("+moteid+", '"+""+"', '"+""+"', "+anvandareID+", '"+title+"', '"+anteckning+"', '"+plats+"')");
+                for(int i = 0; i< modelAnvandare.getSize();i++){
+                    int id = Integer.parseInt(idb.getAutoIncrement("deltar", "id"));
+                    String fraga = "SELECT id from anvandare where anvandarnamn = '"+anvandare[i]+"'";
+                    int anvandarIdAttBjudaIn = Integer.parseInt(idb.fetchSingle(fraga));         
+                    idb.insert("INSERT INTO DELTAR (ID, MOTEID, ANVANDAREID) VALUES ("+id+", "+moteid+", "+anvandarIdAttBjudaIn+")");
+                    System.out.println("INSERT INTO DELTAR (ID, MOTEID, ANVANDAREID) VALUES ("+id+", "+moteid+", "+anvandarIdAttBjudaIn+")");
+                } 
+
+                for(int i = 0; i< modelDatum.getSize();i++){
+                    String forslagnaDatumTid = String.valueOf(datum[i]).replaceAll("\\s+","");
+                    String[] datumTid = forslagnaDatumTid.split("kl");
+                    int id = Integer.parseInt(idb.getAutoIncrement("FORESLAGNA_MOTESTIDER", "id"));  
+                    idb.insert("INSERT INTO FORESLAGNA_MOTESTIDER (ID, MOTEID, TID, DAG) VALUES ("+id+", "+moteid+", '"+datumTid[1]+"', '"+datumTid[0]+"')");
+                    System.out.println("INSERT INTO FORESLAGNA_MOTESTIDER (ID, MOTEID, TID, DAG) VALUES ("+id+", "+moteid+", '"+datumTid[1]+"', '"+datumTid[0]+"')");
+                }   
+                JOptionPane.showMessageDialog(null, "Ditt möte har registrerats!");
+                tfTitle.setText("");
+                tfPlats.setText("");
+                txtareaAnteckning.setText("");
+                tfTidFran.setText("");
+            }catch(InfException ex){
+                System.out.println("Kunde inte lägga in mötet i databasen: " + ex.getMessage());
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Titel, plats och anteckning måste vara minst 5 tecken. Du måste även ge förslag när mötet ska äga rum");
         }
-        
-        
+ 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tfTidFranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTidFranActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfTidFranActionPerformed
     
         private void cboxSkrivUtAnvandare(){
         int i = 1;
